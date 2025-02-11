@@ -14,6 +14,8 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import '@/configs/themes/unitstyles';
 import '@/configs/localization';
+import {UnityProvider} from '@/contexts';
+import {UnityContainer} from '@/components';
 
 const queryClient = new QueryClient();
 
@@ -23,7 +25,10 @@ function App(): React.JSX.Element {
       <PersistGate loading={null} persistor={persistor}>
         <QueryClientProvider client={queryClient}>
           <NavigationContainer>
-            <AppNavigation />
+            <UnityProvider>
+              <AppNavigation />
+              <UnityContainer />
+            </UnityProvider>
           </NavigationContainer>
         </QueryClientProvider>
       </PersistGate>
