@@ -54,3 +54,8 @@ web-build/
 coverage/
 *.env
 .parcel-cache/
+
+android/build/
+android/app/build
+ios/build/
+vendor/
