@@ -9,7 +9,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-// import UnityView from '@azesmway/react-native-unity';
+import UnityView from '@azesmway/react-native-unity';
 
 const {width, height} = Dimensions.get('screen');
 const POSITION_HIDE = width + height;
@@ -31,13 +31,7 @@ export const UnityContainer = () => {
 
   return (
     <Animated.View style={[styles.unityContainer, stylez]}>
-      {/* <UnityView
-        ref={unityRef}
-        style={styles.unityView}
-        onUnityMessage={result =>
-          console.log('onUnityMessage:', result.nativeEvent.message)
-        }
-      /> */}
+      <UnityView ref={unityRef} style={styles.unityView} />
     </Animated.View>
   );
 };

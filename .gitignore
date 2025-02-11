@@ -62,3 +62,4 @@ vendor/
 ios/Pods/
 ios/*.local
 android/app/.cxx
+unity/builds/
