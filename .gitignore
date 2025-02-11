@@ -59,3 +59,6 @@ android/build/
 android/app/build
 ios/build/
 vendor/
+ios/Pods/
+ios/*.local
+android/app/.cxx
