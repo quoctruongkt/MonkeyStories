@@ -19,6 +19,10 @@ class AppDelegate: RCTAppDelegate {
   override func sourceURL(for bridge: RCTBridge) -> URL? {
     self.bundleURL()
   }
+  
+  override func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+          return Orientation.getOrientation()
+  }
 
   override func bundleURL() -> URL? {
 #if DEBUG

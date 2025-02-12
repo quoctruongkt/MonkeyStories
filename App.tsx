@@ -5,7 +5,6 @@
  * @format
  */
 
-import {AppNavigation} from '@/navigation/AppNavigation';
 import {persistor, store} from '@/store';
 import {NavigationContainer} from '@react-navigation/native';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
@@ -16,6 +15,7 @@ import '@/configs/themes/unitstyles';
 import '@/configs/localization';
 import {UnityProvider} from '@/contexts';
 import {UnityContainer} from '@/components';
+import {AppNavigation, navigationRef} from '@/navigation';
 
 const queryClient = new QueryClient();
 
@@ -24,7 +24,7 @@ function App(): React.JSX.Element {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <QueryClientProvider client={queryClient}>
-          <NavigationContainer>
+          <NavigationContainer ref={navigationRef}>
             <UnityProvider>
               <AppNavigation />
               <UnityContainer />
