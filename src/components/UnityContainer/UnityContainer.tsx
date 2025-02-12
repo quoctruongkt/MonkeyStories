@@ -1,7 +1,7 @@
 // UnityContainer.js
 import {useUnity} from '@/contexts';
 import React, {useEffect, useRef} from 'react';
-import {Dimensions} from 'react-native';
+import {Dimensions, Text, TouchableOpacity} from 'react-native';
 import {useStyles} from 'react-native-unistyles';
 import {stylesheet} from './UnityContainer.style';
 import Animated, {
@@ -19,6 +19,7 @@ import {
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import {TSendMessageUnity} from './UnityContainer.type';
 import {getOrientationType, onLockOrientation} from './UnityContainer.helper';
+import {useAppNavigation} from '@/hooks';
 
 const {width, height} = Dimensions.get('screen');
 const POSITION_HIDE = width + height;
@@ -29,6 +30,7 @@ export const UnityContainer = () => {
   const {styles} = useStyles(stylesheet);
   const {isUnityVisible} = useUnity();
   const position = useSharedValue(POSITION_HIDE);
+  const navigation = useAppNavigation();
 
   const stylez = useAnimatedStyle(() => ({
     transform: [{translateX: position.value}],
@@ -73,6 +75,20 @@ export const UnityContainer = () => {
   return (
     <Animated.View style={[styles.unityContainer, stylez]}>
       <UnityView ref={unityRef} style={styles.unityView} />
+      <TouchableOpacity
+        onPress={navigation.goBack}
+        style={{
+          position: 'absolute',
+          top: 100,
+          left: 100,
+          width: 50,
+          height: 50,
+          backgroundColor: 'red',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text>Back</Text>
+      </TouchableOpacity>
     </Animated.View>
   );
 };

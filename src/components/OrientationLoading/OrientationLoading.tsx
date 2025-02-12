@@ -10,7 +10,7 @@ import Animated, {
 import {ActivityIndicator, Text} from 'react-native';
 
 const RADIUS_START = 30;
-const SCALE_START = 0.95;
+const SCALE_START = 0.9;
 const RADIUS_END = 0;
 const SCALE_END = 1;
 const OPACITY_START = 0;
@@ -38,7 +38,7 @@ export const OrientationLoading = ({show}: TOrientationLoading) => {
       setIsVisible(show);
       borderRadius.value = RADIUS_START;
       scale.value = SCALE_START;
-      opacity.value = OPACITY_START;
+      opacity.value = OPACITY_END;
 
       borderRadius.value = withTiming(RADIUS_END);
       scale.value = withTiming(SCALE_END);

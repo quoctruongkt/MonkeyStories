@@ -36,10 +36,10 @@ function App(): React.JSX.Element {
         }, 800);
       }
     };
-    Orientation.addOrientationListener(onOrientationChanged);
+    Orientation.addLockListener(onOrientationChanged);
 
     return () => {
-      Orientation.removeOrientationListener(onOrientationChanged);
+      Orientation.removeLockListener(onOrientationChanged);
     };
   }, []);
 
