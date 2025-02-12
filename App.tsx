@@ -15,8 +15,8 @@ import '@/configs/themes/unitstyles';
 import '@/configs/localization';
 import {UnityProvider} from '@/contexts';
 import {OrientationLoading, UnityContainer} from '@/components';
-import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import {AppNavigation, navigationRef} from '@/navigation';
+import Orientation, {OrientationType} from 'react-native-orientation-locker';
 
 const queryClient = new QueryClient();
 
