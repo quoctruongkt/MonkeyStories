@@ -35,8 +35,6 @@ export const UnityContainer = () => {
   }));
 
   const sendMessageToUnity = (params: TSendMessageUnity) => {
-    console.log(params);
-
     unityRef.current?.postMessage(
       params.gameObject ?? EUnityGameObject.Message,
       params.methodName ?? EUnityMethodName.Orientation,
@@ -59,9 +57,9 @@ export const UnityContainer = () => {
       let orientationUnity = getOrientationType(orientation);
       sendMessageToUnity({message: orientationUnity});
     };
-    const unsubscribe = navigationRef.addListener('options', options => {
-      const {orientation} = options.data.options;
-      onOrientationOptionChanged(orientation);
+    const unsubscribe = navigationRef.addListener('options', ({data}) => {
+      const options = data.options as any;
+      onOrientationOptionChanged(options?.orientation);
     });
 
     Orientation.addLockListener(onOrientationChanged);
