@@ -5,18 +5,19 @@
  * @format
  */
 
-import {persistor, store} from '@/store';
 import {NavigationContainer} from '@react-navigation/native';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import React, {useEffect, useRef, useState} from 'react';
-import {Provider} from 'react-redux';
-import {PersistGate} from 'redux-persist/integration/react';
 import '@/configs/themes/unitstyles';
 import '@/configs/localization';
-import {UnityProvider} from '@/contexts';
-import {OrientationLoading, UnityContainer} from '@/components';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+
+import {OrientationLoading, UnityContainer} from '@/components';
+import {UnityProvider} from '@/contexts';
 import {AppNavigation, navigationRef} from '@/navigation';
+import {persistor, store} from '@/store';
 
 const queryClient = new QueryClient();
 

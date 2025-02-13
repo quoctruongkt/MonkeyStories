@@ -15,7 +15,11 @@ node create screenName screens
 
 # Quy tắc commit code:
 
-## 1. Cấu trúc commit message
+## 1. Điều kiện
+
+- Trước khi commit sẽ chạy `lint`, nếu có lỗi trong rules thì sẽ từ chối commit
+
+## 2. Cấu trúc commit message
 
 ```
 <type>(<scope>): <message>
@@ -25,7 +29,7 @@ node create screenName screens
 - `<scope>`: Phạm vi ảnh hưởng của commit (tùy chọn).
 - `<message>`: Mô tả ngắn gọn về thay đổi (bắt buộc, không quá 100 ký tự).
 
-## 2. Các loại commit hợp lệ (type-enum)
+## 3. Các loại commit hợp lệ (type-enum)
 
 | Type     | Ý nghĩa                                                                              |
 | -------- | ------------------------------------------------------------------------------------ |

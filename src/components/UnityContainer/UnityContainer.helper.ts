@@ -1,5 +1,6 @@
-import {EOrientationNavigationTypes, EOrientationToUnity} from '@/constants';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
+
+import {EOrientationNavigationTypes, EOrientationToUnity} from '@/constants';
 
 export const onLockOrientation = (
   orientation: EOrientationNavigationTypes,

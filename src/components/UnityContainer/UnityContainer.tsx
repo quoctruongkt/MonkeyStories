@@ -1,25 +1,27 @@
 // UnityContainer.js
-import {useUnity} from '@/contexts';
+import UnityView from '@azesmway/react-native-unity';
 import React, {useEffect, useRef} from 'react';
 import {Dimensions, Text, TouchableOpacity} from 'react-native';
-import {useStyles} from 'react-native-unistyles';
-import {stylesheet} from './UnityContainer.style';
+import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import UnityView from '@azesmway/react-native-unity';
-import {navigationRef} from '@/navigation';
+import {useStyles} from 'react-native-unistyles';
+
+import {getOrientationType, onLockOrientation} from './UnityContainer.helper';
+import {stylesheet} from './UnityContainer.style';
+import {TSendMessageUnity} from './UnityContainer.type';
+
 import {
   EOrientationNavigationTypes,
   EUnityGameObject,
   EUnityMethodName,
 } from '@/constants';
-import Orientation, {OrientationType} from 'react-native-orientation-locker';
-import {TSendMessageUnity} from './UnityContainer.type';
-import {getOrientationType, onLockOrientation} from './UnityContainer.helper';
+import {useUnity} from '@/contexts';
 import {useAppNavigation} from '@/hooks';
+import {navigationRef} from '@/navigation';
 
 const {width, height} = Dimensions.get('screen');
 const POSITION_HIDE = width + height;
@@ -75,18 +77,7 @@ export const UnityContainer = () => {
   return (
     <Animated.View style={[styles.unityContainer, stylez]}>
       <UnityView ref={unityRef} style={styles.unityView} />
-      <TouchableOpacity
-        onPress={navigation.goBack}
-        style={{
-          position: 'absolute',
-          top: 100,
-          left: 100,
-          width: 50,
-          height: 50,
-          backgroundColor: 'red',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+      <TouchableOpacity onPress={navigation.goBack} style={styles.button}>
         <Text>Back</Text>
       </TouchableOpacity>
     </Animated.View>

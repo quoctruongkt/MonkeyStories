@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {useStyles} from 'react-native-unistyles';
-import {stylesheet} from './OrientationLoading.style';
+import {ActivityIndicator, Text} from 'react-native';
 import Animated, {
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import {ActivityIndicator, Text} from 'react-native';
+import {useStyles} from 'react-native-unistyles';
+
+import {stylesheet} from './OrientationLoading.style';
 
 const RADIUS_START = 30;
 const SCALE_START = 0.9;

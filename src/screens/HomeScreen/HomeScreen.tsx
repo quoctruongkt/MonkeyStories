@@ -1,9 +1,11 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {useStyles} from 'react-native-unistyles';
+
 import {stylesheet} from './HomeScreen.style';
-import {useAppNavigation} from '@/hooks';
+
 import {EScreenName} from '@/constants';
+import {useAppNavigation} from '@/hooks';
 
 export function HomeScreen() {
   const {styles} = useStyles(stylesheet);

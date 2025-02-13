@@ -1,8 +1,9 @@
 import i18n from 'i18next';
-import {initReactI18next} from 'react-i18next';
 import {LanguageDetectorModule} from 'i18next';
-import {storage} from '@/storage';
+import {initReactI18next} from 'react-i18next';
+
 import en from '@/assets/languages/en.json';
+import {storage} from '@/storage';
 
 const languageDetector: LanguageDetectorModule = {
   type: 'languageDetector',

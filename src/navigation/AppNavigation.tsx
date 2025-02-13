@@ -1,7 +1,8 @@
-import React from 'react';
-import {HomeScreen, UnityScreen} from '@/screens';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React from 'react';
+
 import {EScreenName, EOrientationNavigationTypes} from '@/constants';
+import {HomeScreen, UnityScreen} from '@/screens';
 
 const Stack = createNativeStackNavigator();
 
