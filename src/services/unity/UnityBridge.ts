@@ -3,7 +3,6 @@ import {RefObject} from 'react';
 
 import {OnMessageHandler, TMessageUnity} from '@/types';
 import {generateId} from '@/utils';
-import {Logger} from '../debug/Logger';
 
 export enum EUnityGameObject {
   Message = 'Message', // Điều chỉnh theo tên GameObject trên Unity
