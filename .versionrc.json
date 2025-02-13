@@ -1,0 +1,15 @@
+{
+  "releaseCount": 0,
+  "types": [
+    {"type": "feat", "section": "Features"},
+    {"type": "fix", "section": "Bug Fixes"},
+    {"type": "docs", "hidden": true},
+    {"type": "style", "hidden": true},
+    {"type": "refactor", "hidden": true},
+    {"type": "perf", "hidden": true},
+    {"type": "test", "hidden": true},
+    {"type": "chore", "hidden": true}
+  ],
+  "commitUrlFormat": "https://github.com/quoctruongkt/MonkeyStories/commits/{{hash}}",
+  "compareUrlFormat": "https://github.com/quoctruongkt/MonkeyStories/compare/{{previousTag}}...{{currentTag}}"
+}

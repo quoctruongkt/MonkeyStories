@@ -1,6 +1,6 @@
 {
   "name": "MonkeyStories",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -11,7 +11,8 @@
     "unity": "rm -rf ios/Pods; rm -rf ios/Podfile.lock; npx pod-install",
     "log": "adb reverse tcp:9090 tcp:9090; react-native run-android",
     "prepare": "husky",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "release": "commit-and-tag-version"
   },
   "dependencies": {
     "@azesmway/react-native-unity": "^1.0.11",
@@ -54,6 +55,7 @@
     "@types/react": "^18.2.6",
     "@types/react-test-renderer": "^18.0.0",
     "babel-plugin-module-resolver": "^5.0.2",
+    "commit-and-tag-version": "^12.5.0",
     "eslint": "^8.19.0",
     "eslint-plugin-import": "^2.31.0",
     "husky": "^9.1.7",

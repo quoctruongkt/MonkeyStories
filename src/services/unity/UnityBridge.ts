@@ -2,7 +2,7 @@
 import {RefObject} from 'react';
 
 import {OnMessageHandler, TMessageUnity} from '@/types';
-import {generateId} from '@/utils';
+// import {generateId} from '@/utils';
 
 export enum EUnityGameObject {
   Message = 'Message', // Điều chỉnh theo tên GameObject trên Unity
@@ -24,12 +24,12 @@ export class UnityBridge {
   // Hàm gửi message từ RN sang Unity
   sendMessageToUnity(params: TMessageUnity): void {
     try {
-      const id = params.id ?? generateId();
-      const message = JSON.stringify({...params, id});
+      // const id = params.id ?? generateId();
+      // const message = JSON.stringify({...params, id});
       this.unityRef.current?.postMessage(
         EUnityGameObject.Message,
         EUnityMethodName.Orientation,
-        message,
+        params,
       );
     } catch (error) {
       console.error('Error sending message to Unity:', error);
