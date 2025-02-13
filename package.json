@@ -1,6 +1,6 @@
 {
   "name": "MonkeyStories",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -12,7 +12,8 @@
     "log": "adb reverse tcp:9090 tcp:9090; react-native run-android",
     "prepare": "husky",
     "commitlint": "commitlint --edit",
-    "release": "commit-and-tag-version"
+    "release": "commit-and-tag-version && gh release create $(node -p \"require('./package.json').version\") --notes-file CHANGELOG.md && git push --follow-tags",
+    "pushRelease": "git push --follow-tags origin main"
   },
   "dependencies": {
     "@azesmway/react-native-unity": "^1.0.11",
