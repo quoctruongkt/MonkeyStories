@@ -25,6 +25,7 @@ import {AppNavigation, navigationRef} from '@/navigation';
 import {persistor, store} from '@/store';
 
 const queryClient = new QueryClient();
+const TIME_ORIENTATION_LOADING = 800;
 
 function App(): React.JSX.Element {
   const [isOrientationLoadingVisible, setIsOrientationLoadingVisible] =
@@ -40,7 +41,7 @@ function App(): React.JSX.Element {
 
         setTimeout(() => {
           setIsOrientationLoadingVisible(false);
-        }, 800);
+        }, TIME_ORIENTATION_LOADING);
       }
     };
     Orientation.addLockListener(onOrientationChanged);
