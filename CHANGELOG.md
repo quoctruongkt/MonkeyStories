@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.4](https://github.com/quoctruongkt/MonkeyStories/compare/v0.0.3...v0.0.4) (2025-02-13)
+
+
+### Features
+
+* update change log ([fb3d379](https://github.com/quoctruongkt/MonkeyStories/commits/fb3d3793fb374d00c31a2d906b1a25da7147a31e))
+
 ## [0.0.3](https://github.com/quoctruongkt/MonkeyStories/compare/v0.0.2...v0.0.3) (2025-02-13)
 
 ## [0.0.2](https://github.com/quoctruongkt/MonkeyStories/compare/c42ad469a536c0400e539f1e159e68c6eb774177...v0.0.2) (2025-02-13)
