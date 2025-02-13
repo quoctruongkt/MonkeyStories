@@ -24,9 +24,10 @@ const componentPath = path.join(BASE_DIR, targetFolder, componentName);
 
 const componentTsx = `import React from 'react';
 import {useStyles} from 'react-native-unistyles';
-import {stylesheet} from './Test.style';
 
-const T${componentName}Props = {};
+import {stylesheet} from './${componentName}.style';
+
+type T${componentName}Props = {};
 
 export const ${componentName}: React.FC<T${componentName}Props> = () => {
   const {styles} = useStyles(stylesheet);

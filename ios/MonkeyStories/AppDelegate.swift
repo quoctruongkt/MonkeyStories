@@ -2,6 +2,7 @@ import UIKit
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
+import RNBootSplash
 
 @main
 class AppDelegate: RCTAppDelegate {
@@ -20,8 +21,15 @@ class AppDelegate: RCTAppDelegate {
     self.bundleURL()
   }
   
+  // Tích hợp orientation locker
   override func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
           return Orientation.getOrientation()
+  }
+  
+  // Tích hợp boot splash
+  override func customize(_ rootView: RCTRootView!) {
+    super.customize(rootView)
+    RNBootSplash.initWithStoryboard("BootSplash", rootView: rootView) // ⬅️ initialize the splash screen
   }
 
   override func bundleURL() -> URL? {

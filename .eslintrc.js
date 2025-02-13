@@ -23,5 +23,13 @@ module.exports = {
     ],
     'react-native/no-inline-styles': 'error',
     '@typescript-eslint/no-unused-vars': 'error',
+    'max-lines': [
+      'error',
+      {max: 500, skipBlankLines: true, skipComments: true},
+    ],
+    'import/no-unused-modules': [
+      'error',
+      {unusedExports: true, missingExports: false},
+    ],
   },
 };
