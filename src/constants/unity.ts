@@ -5,3 +5,5 @@ export enum EUnityGameObject {
 export enum EUnityMethodName {
   Orientation = 'Orientation',
 }
+
+export enum EMessageTypeUN {}

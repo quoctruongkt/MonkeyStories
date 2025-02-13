@@ -39,3 +39,72 @@ public FrameLayout requestFrame() {
 ```
 commandLineArgs.add("--tool-chain-path=" + android.ndkPath)
 ```
+
+# Giao tiếp RN <-> Unity
+
+## 1. Mục tiêu
+
+- **Mô hình request/response**:
+  Unity gửi yêu cầu (request) đến RN, RN xử lý nghiệp vụ và gửi lại phản hồi (response) với kết quả (resolve) hoặc lỗi (reject).
+
+- **Định dạng thống nhất**:
+  Mỗi message là một JSON với các trường:
+
+  - id: Mã định danh duy nhất
+  - type: Loại message (ví dụ: "getData")
+  - payload: Dữ liệu yêu cầu hoặc kết quả (có thể chứa thông tin lỗi)
+
+## 2. Quy trình giao tiếp
+
+1. **Unity gửi yêu cầu đến RN:**
+
+- Unity gửi một JSON message qua hàm như `UnityMessageManager.Instance.SendMessageToRN`
+- Ví dụ:
+
+```json
+{
+  "id": "abc123",
+  "type": "getData",
+  "payload": "Yêu cầu dữ liệu"
+}
+```
+
+2. **RN nhận và xử lý yêu cầu:**
+
+- Sau xử lý, RN gửi lại phản hồi qua postMessage với cùng `id` và `type`.
+- Nếu thành công, RN gửi:
+
+```json
+{
+  "id": "abc123",
+  "type": "getData",
+  "payload": {
+    "success": false,
+    "result": "Dữ liệu trả về"
+  }
+}
+```
+
+- Nếu có lỗi, RN gửi:
+
+```json
+{
+  "id": "abc123",
+  "type": "getData",
+  "payload": {
+    "success": false,
+    "error": "Thông báo lỗi"
+  }
+}
+```
+
+## 3. Lưu ý cho Unity
+
+- Đồng nhất định dạng message:
+  Cả RN và Unity cần thống nhất về cấu trúc JSON (id, type, payload).
+
+- Xử lý lỗi:
+  Khi nhận phản hồi, kiểm tra payload.success (nếu có) để phân biệt giữa kết quả thành công và lỗi.
+
+- Cấu hình UnityMessageManager:
+  Đảm bảo rằng Unity đã tích hợp và cấu hình đúng UnityMessageManager (hoặc giải pháp tương đương) để nhận và gửi message.

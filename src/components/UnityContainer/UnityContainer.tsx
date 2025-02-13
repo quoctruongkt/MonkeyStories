@@ -1,6 +1,6 @@
 // UnityContainer.js
 import UnityView from '@azesmway/react-native-unity';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 import {Dimensions, Text, TouchableOpacity} from 'react-native';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import Animated, {
@@ -12,16 +12,13 @@ import {useStyles} from 'react-native-unistyles';
 
 import {getOrientationType, onLockOrientation} from './UnityContainer.helper';
 import {stylesheet} from './UnityContainer.style';
-import {TSendMessageUnity} from './UnityContainer.type';
 
-import {
-  EOrientationNavigationTypes,
-  EUnityGameObject,
-  EUnityMethodName,
-} from '@/constants';
+import {EOrientationNavigationTypes} from '@/constants';
 import {useUnity} from '@/contexts';
 import {useAppNavigation} from '@/hooks';
 import {navigationRef} from '@/navigation';
+import {UnityBridge} from '@/services/unity/UnityBridge';
+import {TMessageUnity} from '@/types';
 
 const {width, height} = Dimensions.get('screen');
 const POSITION_HIDE = width + height;
@@ -38,13 +35,15 @@ export const UnityContainer = () => {
     transform: [{translateX: position.value}],
   }));
 
-  const sendMessageToUnity = (params: TSendMessageUnity) => {
-    unityRef.current?.postMessage(
-      params.gameObject ?? EUnityGameObject.Message,
-      params.methodName ?? EUnityMethodName.Orientation,
-      params.message,
-    );
+  const onBusinessLogic = async (data: TMessageUnity) => {
+    switch (data) {
+    }
   };
+
+  const {handleUnityMessage, sendMessageToUnity} = useMemo(
+    () => new UnityBridge(unityRef, onBusinessLogic),
+    [unityRef.current],
+  );
 
   useEffect(() => {
     position.value = withTiming(isUnityVisible ? POSITION_SHOW : POSITION_HIDE);
@@ -59,7 +58,7 @@ export const UnityContainer = () => {
 
     const onOrientationChanged = (orientation: OrientationType) => {
       let orientationUnity = getOrientationType(orientation);
-      sendMessageToUnity({message: orientationUnity});
+      sendMessageToUnity(orientationUnity);
     };
     const unsubscribe = navigationRef.addListener('options', ({data}) => {
       const options = data.options as any;
@@ -76,7 +75,13 @@ export const UnityContainer = () => {
 
   return (
     <Animated.View style={[styles.unityContainer, stylez]}>
-      <UnityView ref={unityRef} style={styles.unityView} />
+      <UnityView
+        ref={unityRef}
+        style={styles.unityView}
+        onUnityMessage={({nativeEvent}) => {
+          handleUnityMessage(nativeEvent.message);
+        }}
+      />
       <TouchableOpacity onPress={navigation.goBack} style={styles.button}>
         <Text>Back</Text>
       </TouchableOpacity>
