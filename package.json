@@ -12,8 +12,7 @@
     "log": "adb reverse tcp:9090 tcp:9090; react-native run-android",
     "prepare": "husky",
     "commitlint": "commitlint --edit",
-    "release": "commit-and-tag-version && gh release create $(node -p \"require('./package.json').version\") --notes-file CHANGELOG.md && git push --follow-tags",
-    "pushRelease": "git push --follow-tags origin main"
+    "release": "commit-and-tag-version && git push --follow-tags"
   },
   "dependencies": {
     "@azesmway/react-native-unity": "^1.0.11",
