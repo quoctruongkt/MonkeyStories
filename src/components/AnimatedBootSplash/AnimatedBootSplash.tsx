@@ -41,25 +41,30 @@ export const AnimatedBootSplash: React.FC<TAnimatedBootSplashProps> = ({
   });
 
   const stylez = useAnimatedStyle(() => {
-    const scale = interpolate(
-      position.value,
-      [POSITION_START, POSITION_MIDDLE, POSITION_END],
-      [1, 1.1, 0],
-    );
     const opacity = interpolate(
       position.value,
       [POSITION_START, POSITION_MIDDLE, POSITION_END],
       [1, 1, 0.2],
     );
     return {
-      transform: [{translateY: position.value}, {scale: scale}],
       opacity,
     };
   });
 
+  const imageStylez = useAnimatedStyle(() => {
+    const scale = interpolate(
+      position.value,
+      [POSITION_START, POSITION_MIDDLE, POSITION_END],
+      [1, 1.1, 0],
+    );
+    return {transform: [{translateY: position.value}, {scale: scale}]};
+  });
+
   return (
     <Animated.View {...container} style={[container.style, stylez]}>
-      <Image {...logo} />
+      <Animated.View style={imageStylez}>
+        <Image {...logo} />
+      </Animated.View>
     </Animated.View>
   );
 };
