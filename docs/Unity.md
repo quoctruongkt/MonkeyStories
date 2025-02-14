@@ -79,7 +79,7 @@ commandLineArgs.add("--tool-chain-path=" + android.ndkPath)
   "id": "abc123",
   "type": "getData",
   "payload": {
-    "success": false,
+    "success": true,
     "result": "Dữ liệu trả về"
   }
 }
@@ -93,7 +93,7 @@ commandLineArgs.add("--tool-chain-path=" + android.ndkPath)
   "type": "getData",
   "payload": {
     "success": false,
-    "error": "Thông báo lỗi"
+    "result": "Thông báo lỗi"
   }
 }
 ```
