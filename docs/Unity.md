@@ -108,3 +108,72 @@ commandLineArgs.add("--tool-chain-path=" + android.ndkPath)
 
 - Cấu hình UnityMessageManager:
   Đảm bảo rằng Unity đã tích hợp và cấu hình đúng UnityMessageManager (hoặc giải pháp tương đương) để nhận và gửi message.
+
+## 4. Các message RN → UN
+
+| Type       | Payload                             | Mô tả              |
+| ---------- | ----------------------------------- | ------------------ |
+| `open_map` | [TOpenMapPayload](#topenmappayload) | Yêu cầu mở map học |
+|            |                                     |                    |
+|            |                                     |                    |
+|            |                                     |                    |
+
+## 5. Các message UN -> RN
+
+| Type           | Payload                                     | Result                                    | Mô tả                                            |
+| -------------- | ------------------------------------------- | ----------------------------------------- | ------------------------------------------------ |
+| `close_map`    | `null`                                      | `null`                                    | Unity yêu cầu đóng map                           |
+| `lesson_press` | [TLessonPressPayload](#tlessonpresspayload) | [TLessonPressResult](#tlessonpressresult) | Unity bấm vào lesson trong map                   |
+| `lesson_done`  | [TLessonDonePayload](#tlessondonepayload)   | [TLessonDoneResult](#tlessondoneresult)   | Unity báo đã học xong. Trả về trạng thái map mới |
+|                |                                             |                                           |                                                  |
+
+## 6. Types
+
+### TOpenMapPayload
+
+```typescript
+enum ELessonStatus {
+  Lock = 1,
+  Doing = 2,
+  Done = 3
+}
+
+type TLessonItem {
+  lesson_id: number;
+  status: ELessonStatus;
+}
+
+type TOpenMapPayload = TLessonItem[];
+```
+
+### TLessonPressPayload
+
+```typescript
+type TLessonPressPayload = {
+  lesson_id: number;
+};
+```
+
+### TLessonPressResult
+
+```typescript
+type TLessonPressResult = {
+  activity_path: string;
+  word_path: string;
+};
+```
+
+### TLessonDonePayload
+
+```typescript
+type TLessonDonePayload = {
+  lesson_id: number;
+  status: ELessonStatus;
+};
+```
+
+### TLessonDoneResult
+
+```typescript
+type TLessonDoneResult = TOpenMapPayload;
+```
