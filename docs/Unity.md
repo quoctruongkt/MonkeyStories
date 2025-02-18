@@ -129,7 +129,7 @@ commandLineArgs.add("--tool-chain-path=" + android.ndkPath)
 
 ## 6. Types
 
-### TOpenMapPayload
+### - TOpenMapPayload
 
 ```typescript
 enum ELessonStatus {
@@ -143,10 +143,37 @@ type TLessonItem {
   status: ELessonStatus;
 }
 
-type TOpenMapPayload = TLessonItem[];
+type TOpenMapPayload = {
+  list_lesson: TLessonItem[];
+};
 ```
 
-### TLessonPressPayload
+- Ví dụ:
+
+```typescript
+{
+  id: "123",
+  type: "open_map",
+  payload: {
+    list_lesson: [
+      {
+        lesson_id: 123,
+        status: 1
+      },
+      {
+        lesson_id: 456,
+        status: 2
+      },
+      {
+        lesson_id: 789,
+        status: 3
+      },
+    ]
+  }
+}
+```
+
+### - TLessonPressPayload
 
 ```typescript
 type TLessonPressPayload = {
@@ -154,16 +181,34 @@ type TLessonPressPayload = {
 };
 ```
 
-### TLessonPressResult
+### - TLessonPressResult
 
 ```typescript
 type TLessonPressResult = {
   activity_path: string;
   word_path: string;
+  game_id: number;
 };
 ```
 
-### TLessonDonePayload
+- Ví dụ:
+
+```typescript
+{
+  id: "123",
+  type: "GetDataLesson",
+  payload: {
+    success: true,
+    result: {
+      game_id: 123,
+      activity_path: "src/data/activity",
+      word_path: "src/data/word"
+    }
+  }
+}
+```
+
+### - TLessonDonePayload
 
 ```typescript
 type TLessonDonePayload = {
@@ -172,8 +217,36 @@ type TLessonDonePayload = {
 };
 ```
 
-### TLessonDoneResult
+### - TLessonDoneResult
 
 ```typescript
 type TLessonDoneResult = TOpenMapPayload;
+```
+
+- Ví dụ:
+
+```typescript
+{
+  id: "123",
+  type: "GetDataLesson",
+  payload: {
+    success: true,
+    result: {
+      list_lesson: [
+        {
+          lesson_id: 123,
+          status: 1
+        },
+        {
+          lesson_id: 456,
+          status: 2
+        },
+        {
+          lesson_id: 789,
+          status: 3
+        },
+      ]
+    }
+  }
+}
 ```
