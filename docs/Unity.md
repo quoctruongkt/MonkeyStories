@@ -111,21 +111,21 @@ commandLineArgs.add("--tool-chain-path=" + android.ndkPath)
 
 ## 4. Các message RN → UN
 
-| Type       | Payload                             | Mô tả              |
-| ---------- | ----------------------------------- | ------------------ |
-| `open_map` | [TOpenMapPayload](#topenmappayload) | Yêu cầu mở map học |
-|            |                                     |                    |
-|            |                                     |                    |
-|            |                                     |                    |
+| Type          | Payload                                       | Mô tả                                 |
+| ------------- | --------------------------------------------- | ------------------------------------- |
+| `open_map`    | [TOpenMapPayload](#--topenmappayload)         | Yêu cầu mở map học                    |
+| `orientation` | [TOrientationPayload](#--torientationpayload) | Yêu cầu Unity thực hiện xoay màn hình |
+|               |                                               |                                       |
+|               |                                               |                                       |
 
 ## 5. Các message UN -> RN
 
-| Type           | Payload                                     | Result                                    | Mô tả                                            |
-| -------------- | ------------------------------------------- | ----------------------------------------- | ------------------------------------------------ |
-| `close_map`    | `null`                                      | `null`                                    | Unity yêu cầu đóng map                           |
-| `lesson_press` | [TLessonPressPayload](#tlessonpresspayload) | [TLessonPressResult](#tlessonpressresult) | Unity bấm vào lesson trong map                   |
-| `lesson_done`  | [TLessonDonePayload](#tlessondonepayload)   | [TLessonDoneResult](#tlessondoneresult)   | Unity báo đã học xong. Trả về trạng thái map mới |
-|                |                                             |                                           |                                                  |
+| Type            | Payload                                       | Result                                      | Mô tả                                            |
+| --------------- | --------------------------------------------- | ------------------------------------------- | ------------------------------------------------ |
+| `close_map`     | `null`                                        | `null`                                      | Unity yêu cầu đóng map                           |
+| `GetDataLesson` | [TLessonPressPayload](#--tlessonpresspayload) | [TLessonPressResult](#--tlessonpressresult) | Unity bấm vào lesson trong map                   |
+| `lesson_done`   | [TLessonDonePayload](#--tlessondonepayload)   | [TLessonDoneResult](#--tlessondoneresult)   | Unity báo đã học xong. Trả về trạng thái map mới |
+|                 |                                               |                                             |                                                  |
 
 ## 6. Types
 
@@ -247,6 +247,32 @@ type TLessonDoneResult = TOpenMapPayload;
         },
       ]
     }
+  }
+}
+```
+
+# - TOrientationPayload
+
+```typescript
+enum EOrientationToUnity {
+  PORTRAIT = 'PORTRAIT',
+  LANDSCAPE_LEFT = 'LANDSCAPE-LEFT',
+  LANDSCAPE_RIGHT = 'LANDSCAPE-RIGHT',
+}
+
+type TOrientationPayload = {
+  orientation: EOrientationToUnity;
+};
+```
+
+- Ví dụ:
+
+```typescript
+{
+  id: "123",
+  type: "orientation",
+  payload: {
+    orientation: 'PORTRAIT'
   }
 }
 ```
