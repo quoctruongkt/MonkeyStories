@@ -1,7 +1,7 @@
 import {EMessageTypeUN} from '@/constants';
 
 export type TMessageUnity = {
-  id: string;
+  id?: string;
   type: EMessageTypeUN;
   payload: any;
 };

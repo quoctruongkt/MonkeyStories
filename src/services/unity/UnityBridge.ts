@@ -1,16 +1,9 @@
 // UnityBridge.ts
 import {RefObject} from 'react';
 
+import {EUnityGameObject, EUnityMethodName} from '@/constants';
 import {OnMessageHandler, TMessageUnity} from '@/types';
-// import {generateId} from '@/utils';
-
-export enum EUnityGameObject {
-  Message = 'Message', // Điều chỉnh theo tên GameObject trên Unity
-}
-
-export enum EUnityMethodName {
-  Orientation = 'Orientation', // Điều chỉnh theo tên method trên Unity
-}
+import {generateId} from '@/utils';
 
 export class UnityBridge {
   private unityRef: RefObject<any>;
@@ -24,12 +17,25 @@ export class UnityBridge {
   // Hàm gửi message từ RN sang Unity
   sendMessageToUnity(params: TMessageUnity): void {
     try {
-      // const id = params.id ?? generateId();
-      // const message = JSON.stringify({...params, id});
+      const id = generateId();
+      const payload = JSON.stringify(params.payload);
+      const message = JSON.stringify({...params, id, payload});
       this.unityRef.current?.postMessage(
-        EUnityGameObject.Message,
-        EUnityMethodName.Orientation,
-        params,
+        EUnityGameObject.REACT_NATIVE_BRIDGE,
+        EUnityMethodName.REQUEST_UNITY_ACTION,
+        message,
+      );
+    } catch (error) {
+      console.error('Error sending message to Unity:', error);
+    }
+  }
+
+  returnToUnity(params: TMessageUnity): void {
+    try {
+      this.unityRef.current?.postMessage(
+        EUnityGameObject.REACT_NATIVE_BRIDGE,
+        EUnityMethodName.RESULT_FROM_RN,
+        JSON.stringify(params),
       );
     } catch (error) {
       console.error('Error sending message to Unity:', error);
@@ -54,9 +60,9 @@ export class UnityBridge {
       const response: TMessageUnity = {
         id: message.id,
         type: message.type,
-        payload: {result},
+        payload: {success: true, result: JSON.stringify(result)},
       };
-      this.sendMessageToUnity(response);
+      this.returnToUnity(response);
     } catch (error) {
       // Nếu có lỗi, gửi response dạng reject
       const response: TMessageUnity = {
@@ -64,10 +70,10 @@ export class UnityBridge {
         type: message.type,
         payload: {
           success: false,
-          error: error instanceof Error ? error.message : error,
+          result: error instanceof Error ? error.message : error,
         },
       };
-      this.sendMessageToUnity(response);
+      this.returnToUnity(response);
     }
   }
 }

@@ -42,3 +42,86 @@ node create screenName screens
 | test     | Thêm hoặc cập nhật test cases                                                        |
 | revert   | Hoàn tác (revert) commit trước đó                                                    |
 | ci       | Cấu hình CI/CD                                                                       |
+
+# Unity
+
+## 1. `UnityBridge` là gì?
+
+- `UnityBridge` là lớp trung gian dùng để giao tiếp giữa React Native và Unity. Nó cung cấp các phương thức base để gửi yêu cầu từ RN ➡️ Unity và xử lý phản hồi khi nhận được yêu cầu từ Unity ➡️ React native.
+
+### Phụ thuộc
+
+- Yêu cầu:
+
+  - `unityRef`: Tham chiếu đến đối tượng Unity cần giao tiếp.
+  - `onMessageHandler`: Hàm callback xử lý message nhận từ Unity theo logic nghiệp vụ.
+
+- Hằng số:
+
+  - `EUnityGameObject`: Định nghĩa tên của đối tượng Unity.
+  - `EUnityMethodName`: Định nghĩa tên các phương thức của Unity.
+
+- Kiểu dữ liệu:
+  - `TMessageUnity`: Kiểu message được xử dụng để gửi và nhận dữ liệu.
+- Hàm tiện ích:
+  - `generateId`: Sinh mã định danh duy nhất cho mỗi message.
+
+## 2. Làm sao để send message sang Unity?
+
+- Sử dụng hook `useUnity` để lấy hàm `sendMessageToUnity` và gửi message theo định dạng `TMessageUnity` (bao gồm id, type, và payload). Ví dụ:
+
+```typescript
+import React from 'react';
+import {useUnity} from './path/to/UnityProvider';
+
+const MyComponent = () => {
+  const {sendMessageToUnity} = useUnity();
+
+  const handleSendMessage = () => {
+    const message = {
+      id: 'uniqueMessageId123', // Sinh id duy nhất cho mỗi message
+      type: 'ACTION_TYPE', // Loại hành động cần gửi
+      payload: {
+        // Dữ liệu cụ thể cần gửi sang Unity
+        key: 'value',
+      },
+    };
+
+    sendMessageToUnity(message);
+  };
+
+  return <Button onClick={handleSendMessage}>Gửi Message Sang Unity</Button>;
+};
+
+export default MyComponent;
+```
+
+## 2. Xử lý message Unity gửi sang như thế nào?
+
+Hàm callback `onBusinessLogic` trong `UnityContainer`, bạn có thể định nghĩa xử lý logic cho từng loại message:
+
+```typescript
+const onBusinessLogic = useCallback(async (data: TMessageUnity) => {
+  switch (data.type) {
+    case 'example':
+      // Xử lý message kiểu 'example'
+      return 'Kết quả của example';
+    default:
+      return;
+  }
+}, []);
+```
+
+Khi Unity gửi một message, callback này sẽ được gọi và trả về kết quả, sau đó UnityBridge sẽ gửi phản hồi về Unity
+
+# Download data học
+
+## 1. Cấu trúc thư mục lưu trữ
+
+```
+document/
+├── data/
+├── words/
+├── zip_activities/
+└── attract_activities/
+```

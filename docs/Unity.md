@@ -74,6 +74,8 @@ commandLineArgs.add("--tool-chain-path=" + android.ndkPath)
 - Sau xử lý, RN gửi lại phản hồi qua postMessage với cùng `id` và `type`.
 - Nếu thành công, RN gửi:
 
+> ⚠️ Lưu ý: result cần chuyển thành `string` để unity có thể đọc được
+
 ```json
 {
   "id": "abc123",
@@ -120,12 +122,12 @@ commandLineArgs.add("--tool-chain-path=" + android.ndkPath)
 
 ## 5. Các message UN -> RN
 
-| Type            | Payload                                       | Result                                      | Mô tả                                            |
-| --------------- | --------------------------------------------- | ------------------------------------------- | ------------------------------------------------ |
-| `close_map`     | `null`                                        | `null`                                      | Unity yêu cầu đóng map                           |
-| `GetDataLesson` | [TLessonPressPayload](#--tlessonpresspayload) | [TLessonPressResult](#--tlessonpressresult) | Unity bấm vào lesson trong map                   |
-| `lesson_done`   | [TLessonDonePayload](#--tlessondonepayload)   | [TLessonDoneResult](#--tlessondoneresult)   | Unity báo đã học xong. Trả về trạng thái map mới |
-|                 |                                               |                                             |                                                  |
+| Type            | Payload                                       | Result                                      | Mô tả                                                          |
+| --------------- | --------------------------------------------- | ------------------------------------------- | -------------------------------------------------------------- |
+| `CloseUnity`    | `null`                                        | `null`                                      | Unity yêu cầu đóng map                                         |
+| `GetDataLesson` | [TLessonPressPayload](#--tlessonpresspayload) | [TLessonPressResult](#--tlessonpressresult) | Unity bấm vào lesson trong map. Trả về data của lesson được ấn |
+| `lesson_done`   | [TLessonDonePayload](#--tlessondonepayload)   | [TLessonDoneResult](#--tlessondoneresult)   | Unity báo đã học xong. Trả về trạng thái map mới               |
+|                 |                                               |                                             |                                                                |
 
 ## 6. Types
 

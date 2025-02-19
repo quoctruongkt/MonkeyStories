@@ -27,13 +27,25 @@ import {useStyles} from 'react-native-unistyles';
 
 import {stylesheet} from './${componentName}.style';
 
-type T${componentName}Props = {};
+${
+  targetFolder === 'components'
+    ? `type T${componentName}Props = {};
 
 export const ${componentName}: React.FC<T${componentName}Props> = () => {
   const {styles} = useStyles(stylesheet);
 
   return null;
 };
+  `
+    : `export function ${componentName}() {
+  const {styles} = useStyles(stylesheet);
+
+  return null;
+};
+  `
+}
+
+
 `;
 
 const componentStyle = `import {createStyleSheet} from 'react-native-unistyles';

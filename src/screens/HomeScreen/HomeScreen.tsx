@@ -16,10 +16,17 @@ export function HomeScreen() {
     navigation.navigate(EScreenName.UNITY);
   };
 
+  const openMap = () => {
+    navigation.navigate(EScreenName.MAP_LESSON);
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={openUnity} style={styles.button}>
         <Text>Unity</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={openMap} style={styles.button}>
+        <Text>Map Lesson</Text>
       </TouchableOpacity>
       <Switch />
     </View>

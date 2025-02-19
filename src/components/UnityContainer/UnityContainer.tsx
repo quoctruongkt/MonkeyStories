@@ -13,8 +13,12 @@ import {useStyles} from 'react-native-unistyles';
 import {getOrientationType, onLockOrientation} from './UnityContainer.helper';
 import {stylesheet} from './UnityContainer.style';
 
-import {EOrientationNavigationTypes} from '@/constants';
-import {useUnity} from '@/contexts';
+import {
+  EMessageTypeUN,
+  EOrientationNavigationTypes,
+  EUnityMessageTypes,
+} from '@/constants';
+import {UnityEvents, useUnity} from '@/contexts';
 import {useAppNavigation} from '@/hooks';
 import {navigationRef} from '@/navigation';
 import {UnityBridge} from '@/services/unity/UnityBridge';
@@ -48,11 +52,30 @@ export const UnityContainer = () => {
     }
   }, []);
 
-  // Tạo UnityBridge một lần duy nhất, vì unityRef là object ổn định và onBusinessLogic có dependency rõ ràng
   const unityBridge = useMemo(
     () => new UnityBridge(unityRef, onBusinessLogic),
     [onBusinessLogic],
   );
+
+  useEffect(() => {
+    const handleSendMessage = (message: TMessageUnity) => {
+      console.log('📥 send message to Unity', message);
+
+      unityBridge.sendMessageToUnity(message);
+    };
+
+    UnityEvents.addUnityMessageListener(
+      EUnityMessageTypes.SEND_MESSAGE,
+      handleSendMessage,
+    );
+
+    return () => {
+      UnityEvents.removeUnityMessageListener(
+        EUnityMessageTypes.SEND_MESSAGE,
+        handleSendMessage,
+      );
+    };
+  }, []);
 
   // Điều chỉnh vị trí hiển thị của UnityView dựa theo trạng thái isUnityVisible
   useEffect(() => {
@@ -68,9 +91,11 @@ export const UnityContainer = () => {
     };
 
     const onOrientationChanged = (orientation: OrientationType) => {
-      // Chuyển đổi thông tin orientation thành message theo cấu trúc TMessageUnity
       const orientationUnity = getOrientationType(orientation);
-      unityBridge.sendMessageToUnity(orientationUnity);
+      unityBridge.sendMessageToUnity({
+        type: EMessageTypeUN.ORIENTATION,
+        payload: orientationUnity,
+      });
     };
 
     const unsubscribe = navigationRef.addListener('options', ({data}) => {
