@@ -5,24 +5,6 @@ import {ELessonStatus, EMessageTypeUN} from '@/constants';
 import {useUnity} from '@/contexts';
 import {unZipActivitiesPath, useAppNavigation, wordsPath} from '@/hooks';
 
-const list_map = [
-  {lesson_id: 1, status: ELessonStatus.Lock},
-  {lesson_id: 2, status: ELessonStatus.Lock},
-  {lesson_id: 3, status: ELessonStatus.Lock},
-  {lesson_id: 4, status: ELessonStatus.Lock},
-  {lesson_id: 5, status: ELessonStatus.Lock},
-  {lesson_id: 6, status: ELessonStatus.Lock},
-  {lesson_id: 7, status: ELessonStatus.Lock},
-  {lesson_id: 8, status: ELessonStatus.Lock},
-  {lesson_id: 9, status: ELessonStatus.Lock},
-  {lesson_id: 10, status: ELessonStatus.Lock},
-  {lesson_id: 11, status: ELessonStatus.Lock},
-  {lesson_id: 12, status: ELessonStatus.Lock},
-  {lesson_id: 13, status: ELessonStatus.Lock},
-  {lesson_id: 14, status: ELessonStatus.Lock},
-  {lesson_id: 15, status: ELessonStatus.Lock},
-];
-
 const games = [
   {gameId: 1000157, lessonId: 1, activityId: '1528589-60755-dne'},
   {gameId: 1000158, lessonId: 2, activityId: '1528588-60755-uut'},
@@ -41,7 +23,12 @@ export function MapLesson() {
     unregisterHandler,
   } = useUnity();
 
-  const [data, setData] = useState(list_map);
+  const [data, setData] = useState(
+    Array.from({length: 300}, (_, i) => ({
+      lesson_id: i + 1,
+      status: ELessonStatus.Lock,
+    })),
+  );
 
   useEffect(() => {
     sendMessageToUnity({
