@@ -125,3 +125,10 @@ document/
 ├── zip_activities/
 └── attract_activities/
 ```
+
+# Icons
+
+## 1. Các bước để thêm icon
+
+- Bước 1: Truy cập [link](https://svgps.app/) để tạo file `selection.json`.
+-

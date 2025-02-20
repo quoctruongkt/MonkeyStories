@@ -1,7 +1,7 @@
 // UnityContainer.js
 import UnityView from '@azesmway/react-native-unity';
 import React, {useEffect, useMemo, useRef, useCallback} from 'react';
-import {Dimensions, Text, TouchableOpacity} from 'react-native';
+import {Dimensions} from 'react-native';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import Animated, {
   useAnimatedStyle,
