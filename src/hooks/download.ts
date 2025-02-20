@@ -10,8 +10,8 @@ import {unzip} from 'react-native-zip-archive';
 
 const zipFile = `${DocumentDirectoryPath}/data/game.zip`;
 const dataPath = `${DocumentDirectoryPath}/data`;
-const wordsPath = `${DocumentDirectoryPath}/words`;
-const unZipActivitiesPath = `${DocumentDirectoryPath}/unzip_activities`;
+export const wordsPath = `${DocumentDirectoryPath}/words`;
+export const unZipActivitiesPath = `${DocumentDirectoryPath}/unzip_activities`;
 const zipActivitiesPath = `${DocumentDirectoryPath}/zip_activities`;
 
 export const useDownloadData = () => {
@@ -24,6 +24,15 @@ export const useDownloadData = () => {
     }
 
     console.log('⚠️ Thư mục đã tồn tại:', path);
+  };
+
+  const checkAndCopyFile = async (from: string, target: string) => {
+    const isFileExist = await exists(target);
+    if (!isFileExist) {
+      return copyFile(from, target);
+    }
+
+    console.log('⚠️ File đã tồn tại:', target);
   };
 
   const downloadData = async (): Promise<void> => {
@@ -63,7 +72,7 @@ export const useDownloadData = () => {
           const words = await readDir(`${unzipPath}/${fileName}/words`);
           console.log('📂 Danh sách file trong thư mục words:', words);
           for (const word of words) {
-            await copyFile(word.path, `${wordsPath}/${word.name}`);
+            await checkAndCopyFile(word.path, `${wordsPath}/${word.name}`);
           }
           console.log('✅ Đã copy vào words');
 
@@ -73,7 +82,7 @@ export const useDownloadData = () => {
           );
           console.log('📂 Danh sách file trong thư mục activity:', activities);
           for (const activity of activities) {
-            await copyFile(
+            await checkAndCopyFile(
               activity.path,
               `${zipActivitiesPath}/${activity.name}`,
             );

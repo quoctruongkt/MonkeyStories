@@ -1,6 +1,6 @@
 // UnityContainer.js
 import UnityView from '@azesmway/react-native-unity';
-import React, {useEffect, useMemo, useRef, useCallback} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 import {Dimensions} from 'react-native';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import Animated, {
@@ -16,10 +16,9 @@ import {stylesheet} from './UnityContainer.style';
 import {
   EMessageTypeUN,
   EOrientationNavigationTypes,
-  EUnityMessageTypes,
+  EUnityEventTypes,
 } from '@/constants';
 import {UnityEvents, useUnity} from '@/contexts';
-import {useAppNavigation} from '@/hooks';
 import {navigationRef} from '@/navigation';
 import {UnityBridge} from '@/services/unity/UnityBridge';
 import {TMessageUnity} from '@/types';
@@ -32,24 +31,12 @@ export const UnityContainer = () => {
   // Khởi tạo ref cho UnityView (ban đầu sẽ là null, nhưng không ảnh hưởng vì ref là object ổn định)
   const unityRef = useRef(null);
   const {styles} = useStyles(stylesheet);
-  const {isUnityVisible} = useUnity();
+  const {isUnityVisible, onBusinessLogic} = useUnity();
   const position = useSharedValue(POSITION_HIDE);
-  const navigation = useAppNavigation();
 
   const stylez = useAnimatedStyle(() => ({
     transform: [{translateX: position.value}],
   }));
-
-  // Định nghĩa business logic xử lý message từ Unity, sử dụng useCallback để tránh tạo lại không cần thiết
-  const onBusinessLogic = useCallback(async (data: TMessageUnity) => {
-    switch (data.type) {
-      case EMessageTypeUN.CLOSE_MAP:
-        navigation.goBack();
-        return null;
-      default:
-        return;
-    }
-  }, []);
 
   const unityBridge = useMemo(
     () => new UnityBridge(unityRef, onBusinessLogic),
@@ -58,19 +45,17 @@ export const UnityContainer = () => {
 
   useEffect(() => {
     const handleSendMessage = (message: TMessageUnity) => {
-      console.log('📥 send message to Unity', message);
-
       unityBridge.sendMessageToUnity(message);
     };
 
     UnityEvents.addUnityMessageListener(
-      EUnityMessageTypes.SEND_MESSAGE,
+      EUnityEventTypes.SEND_MESSAGE,
       handleSendMessage,
     );
 
     return () => {
       UnityEvents.removeUnityMessageListener(
-        EUnityMessageTypes.SEND_MESSAGE,
+        EUnityEventTypes.SEND_MESSAGE,
         handleSendMessage,
       );
     };

@@ -4,7 +4,7 @@ export enum EUnityGameObject {
 
 export enum EUnityMethodName {
   REQUEST_UNITY_ACTION = 'RequestUnityAction',
-  RESULT_FROM_RN = 'RequestUnityAction',
+  RESULT_FROM_RN = 'OnResultFromNative',
 }
 
 export enum EMessageTypeUN {
@@ -15,9 +15,8 @@ export enum EMessageTypeUN {
   LESSON_DONE = 'FinishLesson',
 }
 
-export enum EUnityMessageTypes {
+export enum EUnityEventTypes {
   SEND_MESSAGE = 'send_message',
-  RECEIVE_MESSAGE = 'receive_message',
 }
 
 export enum ELessonStatus {

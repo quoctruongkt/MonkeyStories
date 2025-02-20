@@ -19,7 +19,7 @@ export class UnityBridge {
     try {
       const id = generateId();
       const message = JSON.stringify({...params, id});
-      console.log(message);
+      console.log('UnityBridge', '📤 Gửi message đến Unity', {...params, id});
 
       this.unityRef.current?.postMessage(
         EUnityGameObject.REACT_NATIVE_BRIDGE,
@@ -38,8 +38,9 @@ export class UnityBridge {
         EUnityMethodName.RESULT_FROM_RN,
         JSON.stringify(params),
       );
+      console.log('UnityBridge', '📤 Gửi result đến Unity', params);
     } catch (error) {
-      console.error('Error sending message to Unity:', error);
+      console.error('UnityBridge', 'Error sending message to Unity:', error);
     }
   }
 
@@ -54,8 +55,13 @@ export class UnityBridge {
     }
 
     try {
+      const payload = JSON.parse(message.payload || '{}');
+      console.log('UnityBridge', '📥 Nhận message từ Unity', {
+        ...message,
+        payload,
+      });
       // Gọi business logic được cung cấp (onMessageHandler)
-      const result = await this.onMessageHandler(message);
+      const result = await this.onMessageHandler({...message, payload});
 
       // Nếu thành công, gửi response dạng resolve
       const response: TMessageUnity = {

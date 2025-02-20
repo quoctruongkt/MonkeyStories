@@ -98,21 +98,44 @@ export default MyComponent;
 
 ## 2. Xử lý message Unity gửi sang như thế nào?
 
-Hàm callback `onBusinessLogic` trong `UnityContainer`, bạn có thể định nghĩa xử lý logic cho từng loại message:
+- Có 2 chỗ có thể xử lý message mà Unity truyền sang:
+  - Ở màn hình cụ thể: Xử lý logic cho tính năng cụ thể nào đó. Nếu màn nào cần xử lý message thì sẽ gọi `registerHandler`. Ví dụ:
 
 ```typescript
-const onBusinessLogic = useCallback(async (data: TMessageUnity) => {
-  switch (data.type) {
-    case 'example':
-      // Xử lý message kiểu 'example'
-      return 'Kết quả của example';
-    default:
-      return;
-  }
-}, []);
+const ScreenA = () => {
+  const {registerHandler, unregisterHandler} = useUnity();
+
+  useEffect(() => {
+    // Đăng ký handler cho message type TYPE_A
+    registerHandler(EMessageTypeUN.TYPE_A, async data => {
+      console.log('ScreenA xử lý TYPE_A với data:', data);
+      // Thực hiện xử lý logic của ScreenA cho TYPE_A
+      return 'Kết quả từ ScreenA cho TYPE_A';
+    });
+
+    // Đăng ký handler cho message type TYPE_B
+    registerHandler(EMessageTypeUN.TYPE_B, async data => {
+      console.log('ScreenA xử lý TYPE_B với data:', data);
+      // Xử lý logic cho TYPE_B
+      return 'Kết quả từ ScreenA cho TYPE_B';
+    });
+
+    // Hủy đăng ký khi ScreenA unmount
+    return () => {
+      unregisterHandler(EMessageTypeUN.TYPE_A);
+      unregisterHandler(EMessageTypeUN.TYPE_B);
+    };
+  }, [registerHandler, unregisterHandler]);
+
+  return (
+    <View>
+      <Text>Screen A</Text>
+    </View>
+  );
+};
 ```
 
-Khi Unity gửi một message, callback này sẽ được gọi và trả về kết quả, sau đó UnityBridge sẽ gửi phản hồi về Unity
+- Ở trong `UnityProvider`: Xử lý cho các message chung
 
 # Download data học
 
@@ -122,8 +145,14 @@ Khi Unity gửi một message, callback này sẽ được gọi và trả về 
 document/
 ├── data/
 ├── words/
+|   └── *.bundle
 ├── zip_activities/
-└── attract_activities/
+└── unzip_activities/
+|   └── [activity_id]
+|       ├── config.json
+|       ├── list_word.json
+|       ├── word.json
+|       └── list_word_rule.json
 ```
 
 # Icons
