@@ -18,8 +18,9 @@ export class UnityBridge {
   sendMessageToUnity(params: TMessageUnity): void {
     try {
       const id = generateId();
-      const payload = JSON.stringify(params.payload);
-      const message = JSON.stringify({...params, id, payload});
+      const message = JSON.stringify({...params, id});
+      console.log(message);
+
       this.unityRef.current?.postMessage(
         EUnityGameObject.REACT_NATIVE_BRIDGE,
         EUnityMethodName.REQUEST_UNITY_ACTION,
@@ -60,7 +61,7 @@ export class UnityBridge {
       const response: TMessageUnity = {
         id: message.id,
         type: message.type,
-        payload: {success: true, result: JSON.stringify(result)},
+        payload: {success: true, result},
       };
       this.returnToUnity(response);
     } catch (error) {

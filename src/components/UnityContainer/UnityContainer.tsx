@@ -43,10 +43,9 @@ export const UnityContainer = () => {
   // Định nghĩa business logic xử lý message từ Unity, sử dụng useCallback để tránh tạo lại không cần thiết
   const onBusinessLogic = useCallback(async (data: TMessageUnity) => {
     switch (data.type) {
-      // Xử lý các loại message khác nhau tại đây
-      // Ví dụ:
-      // case 'example':
-      //   return 'Kết quả của example';
+      case EMessageTypeUN.CLOSE_MAP:
+        navigation.goBack();
+        return null;
       default:
         return;
     }
@@ -94,7 +93,7 @@ export const UnityContainer = () => {
       const orientationUnity = getOrientationType(orientation);
       unityBridge.sendMessageToUnity({
         type: EMessageTypeUN.ORIENTATION,
-        payload: orientationUnity,
+        payload: {orientation: orientationUnity},
       });
     };
 
@@ -120,9 +119,6 @@ export const UnityContainer = () => {
           unityBridge.handleUnityMessage(nativeEvent.message);
         }}
       />
-      <TouchableOpacity onPress={navigation.goBack} style={styles.button}>
-        <Text>Back</Text>
-      </TouchableOpacity>
     </Animated.View>
   );
 };

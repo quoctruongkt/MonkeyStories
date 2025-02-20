@@ -126,7 +126,7 @@ commandLineArgs.add("--tool-chain-path=" + android.ndkPath)
 | --------------- | --------------------------------------------- | ------------------------------------------- | -------------------------------------------------------------- |
 | `CloseUnity`    | `null`                                        | `null`                                      | Unity yêu cầu đóng map                                         |
 | `GetDataLesson` | [TLessonPressPayload](#--tlessonpresspayload) | [TLessonPressResult](#--tlessonpressresult) | Unity bấm vào lesson trong map. Trả về data của lesson được ấn |
-| `lesson_done`   | [TLessonDonePayload](#--tlessondonepayload)   | [TLessonDoneResult](#--tlessondoneresult)   | Unity báo đã học xong. Trả về trạng thái map mới               |
+| `FinishLesson`  | [TLessonDonePayload](#--tlessondonepayload)   | [TLessonDoneResult](#--tlessondoneresult)   | Unity báo đã học xong. Trả về trạng thái map mới               |
 |                 |                                               |                                             |                                                                |
 
 ## 6. Types

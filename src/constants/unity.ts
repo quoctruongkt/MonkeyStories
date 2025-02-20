@@ -10,12 +10,18 @@ export enum EUnityMethodName {
 export enum EMessageTypeUN {
   ORIENTATION = 'orientation',
   OPEN_MAP = 'open_map',
-  CLOSE_MAP = 'close_map',
-  LESSON_PRESS = 'lesson_press',
-  LESSON_DONE = 'lesson_done',
+  CLOSE_MAP = 'CloseUnity',
+  LESSON_PRESS = 'GetDataLesson',
+  LESSON_DONE = 'FinishLesson',
 }
 
 export enum EUnityMessageTypes {
   SEND_MESSAGE = 'send_message',
   RECEIVE_MESSAGE = 'receive_message',
+}
+
+export enum ELessonStatus {
+  Lock = 1,
+  Doing = 2,
+  Done = 3,
 }
