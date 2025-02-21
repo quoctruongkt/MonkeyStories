@@ -4,5 +4,7 @@ extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autoli
 rootProject.name = 'MonkeyStories'
 include ':app'
 includeBuild('../node_modules/@react-native/gradle-plugin')
+include ':IngameDebugConsole'
+project(":IngameDebugConsole").projectDir = file("./IngameDebugConsole")
 include ':unityLibrary'
 project(':unityLibrary').projectDir=new File('..\\unity\\builds\\android\\unityLibrary')

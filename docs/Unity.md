@@ -40,6 +40,43 @@ public FrameLayout requestFrame() {
 commandLineArgs.add("--tool-chain-path=" + android.ndkPath)
 ```
 
+## 3. Lỗi với thư viện `IngameDebugConsole` trên Android
+
+- Các bước fix lỗi:
+
+1. Trong thư mục gốc `android`, tạo thư mục mới với tên `IngameDebugConsole`.
+2. Di chuyển file `IngameDebugConsole.aar` từ thư mục `unity/builds/android/unityLibrary/libs/` sang thư mục vừa tạo.
+3. Trong thư mục `android/IngameDebugConsole/`, tạo file `build.gradle` với nội dung:
+
+```gradle
+configurations.maybeCreate("default")
+artifacts.add("default", file('IngameDebugConsole.aar'))
+```
+
+4. Sửa file `android/settings.gradle` để thêm module mới:
+
+```gradle
+include ':IngameDebugConsole'
+project(':IngameDebugConsole').projectDir = file('./IngameDebugConsole')
+
+include ':unityLibrary'
+project(':unityLibrary').projectDir = new File('..\\unity\\builds\\android\\unityLibrary')
+```
+
+5. Trong file `unity/builds/android/unityLibrary/build.gradle`, thay đổi dòng dependency từ:
+
+```gradle
+implementation(name: 'IngameDebugConsole', ext:'aar')
+```
+
+thành:
+
+```gradle
+implementation project(':IngameDebugConsole')
+```
+
+> Note: Có thể áp dụng tương tự với các thư viện khác
+
 # Giao tiếp RN <-> Unity
 
 ## 1. Mục tiêu
