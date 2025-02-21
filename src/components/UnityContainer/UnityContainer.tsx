@@ -76,14 +76,12 @@ export const UnityContainer = () => {
     };
 
     const onOrientationChanged = (orientation: OrientationType) => {
-      if (orientation !== currentOrientation.current) {
-        currentOrientation.current = orientation;
-        const orientationUnity = getOrientationType(orientation);
-        unityBridge.sendMessageToUnity({
-          type: EMessageTypeUN.ORIENTATION,
-          payload: {orientation: orientationUnity},
-        });
-      }
+      currentOrientation.current = orientation;
+      const orientationUnity = getOrientationType(orientation);
+      unityBridge.sendMessageToUnity({
+        type: EMessageTypeUN.ORIENTATION,
+        payload: {orientation: orientationUnity},
+      });
     };
 
     const unsubscribe = navigationRef.addListener('options', ({data}) => {

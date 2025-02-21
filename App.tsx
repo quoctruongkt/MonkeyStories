@@ -20,6 +20,8 @@ import {PersistGate} from 'redux-persist/integration/react';
 
 import {
   AnimatedBootSplash,
+  DebugButton,
+  DebugScreen,
   OrientationLoading,
   UnityContainer,
 } from '@/components';
@@ -78,7 +80,8 @@ function App(): React.JSX.Element {
                         }}
                       />
                     ) : null}
-                    {/* <Debug /> */}
+                    <DebugButton />
+                    <DebugScreen />
                   </UnityProvider>
                 </NavigationContainer>
               </QueryClientProvider>

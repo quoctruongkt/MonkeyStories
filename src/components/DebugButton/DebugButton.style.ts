@@ -4,7 +4,8 @@ export const stylesheet = createStyleSheet(() => ({
   button: {
     position: 'absolute',
   },
+  wrap: {position: 'absolute'},
   container: {
-    backgroundColor: 'red',
+    flex: 1,
   },
 }));
