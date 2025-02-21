@@ -1,5 +1,6 @@
 import {useFocusEffect} from '@react-navigation/native';
 import {useCallback, useEffect, useState} from 'react';
+import {Platform} from 'react-native';
 
 import {ELessonStatus, EMessageTypeUN} from '@/constants';
 import {useUnity} from '@/contexts';
@@ -50,8 +51,14 @@ export function MapLesson() {
       return {
         game_id: game?.gameId,
         lesson_id: message.payload.lesson_id,
-        activity_path: `${unZipActivitiesPath}/${game?.activityId}`,
-        word_path: wordsPath,
+        activity_path: Platform.select({
+          android: `file://${unZipActivitiesPath}/${game?.activityId}`,
+          default: `${unZipActivitiesPath}/${game?.activityId}`,
+        }),
+        word_path: Platform.select({
+          android: `file://${wordsPath}`,
+          default: wordsPath,
+        }),
       };
     });
     registerHandler(EMessageTypeUN.LESSON_DONE, async message => {
