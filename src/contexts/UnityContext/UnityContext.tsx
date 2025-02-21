@@ -4,7 +4,7 @@ import React, {createContext, useState, useContext, useCallback} from 'react';
 import {TUnityContext, TUnityProvider} from './UnityContext.type';
 import {UnityEvents} from './UnityEvent';
 
-import {EMessageTypeUN, EUnityEventTypes} from '@/constants';
+import {EMessageTypeUN} from '@/constants';
 import {THandlerMessageUnity, TMessageUnity} from '@/types';
 
 const UnityContext = createContext<TUnityContext>({
@@ -32,7 +32,7 @@ export const UnityProvider = ({children}: TUnityProvider) => {
 
   // Đăng ký một handler cho một message type cụ thể
   const registerHandler = useCallback(
-    (type: EUnityEventTypes, handler: THandlerMessageUnity) => {
+    (type: EMessageTypeUN, handler: THandlerMessageUnity) => {
       setHandlers(prev => ({...prev, [type]: handler}));
     },
     [],
@@ -65,7 +65,10 @@ export const UnityProvider = ({children}: TUnityProvider) => {
   const handlerLogicDefaults = useCallback((data: TMessageUnity) => {
     switch (data.type) {
       default:
-        console.warn(`Không tìm thấy handler cho type ${data.type}`);
+        console.warn(
+          'handlerLogicDefaults',
+          `Không tìm thấy handler cho type ${data.type}`,
+        );
         return null;
     }
   }, []);

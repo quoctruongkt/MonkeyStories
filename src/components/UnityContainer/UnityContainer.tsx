@@ -30,6 +30,7 @@ const POSITION_SHOW = 0;
 export const UnityContainer = () => {
   // Khởi tạo ref cho UnityView (ban đầu sẽ là null, nhưng không ảnh hưởng vì ref là object ổn định)
   const unityRef = useRef(null);
+  const currentOrientation = useRef<OrientationType>(OrientationType.PORTRAIT);
   const {styles} = useStyles(stylesheet);
   const {isUnityVisible, onBusinessLogic} = useUnity();
   const position = useSharedValue(POSITION_HIDE);
@@ -75,11 +76,14 @@ export const UnityContainer = () => {
     };
 
     const onOrientationChanged = (orientation: OrientationType) => {
-      const orientationUnity = getOrientationType(orientation);
-      unityBridge.sendMessageToUnity({
-        type: EMessageTypeUN.ORIENTATION,
-        payload: {orientation: orientationUnity},
-      });
+      if (orientation !== currentOrientation.current) {
+        currentOrientation.current = orientation;
+        const orientationUnity = getOrientationType(orientation);
+        unityBridge.sendMessageToUnity({
+          type: EMessageTypeUN.ORIENTATION,
+          payload: {orientation: orientationUnity},
+        });
+      }
     };
 
     const unsubscribe = navigationRef.addListener('options', ({data}) => {

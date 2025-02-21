@@ -27,7 +27,11 @@ export class UnityBridge {
         message,
       );
     } catch (error) {
-      console.error('Error sending message to Unity:', error);
+      console.error(
+        'sendMessageToUnity',
+        'Error sending message to Unity:',
+        error,
+      );
     }
   }
 
