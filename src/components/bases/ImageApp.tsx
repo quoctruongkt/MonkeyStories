@@ -1,8 +1,8 @@
-import {FasterImageView, FasterImageProps} from '@candlefinance/faster-image';
 import React from 'react';
+import TurboImage, {TurboImageProps} from 'react-native-turbo-image';
 
-interface ImageAppProps extends FasterImageProps {}
+interface ImageAppProps extends TurboImageProps {}
 
 export function ImageApp(props: ImageAppProps) {
-  return <FasterImageView {...props} />;
+  return <TurboImage {...props} />;
 }
