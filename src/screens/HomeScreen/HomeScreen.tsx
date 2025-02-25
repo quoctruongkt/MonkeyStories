@@ -5,15 +5,16 @@ import {useStyles} from 'react-native-unistyles';
 import {stylesheet} from './HomeScreen.style';
 
 import {Switch} from '@/components';
-import {EScreenName} from '@/constants';
+import {EApiType, EScreenName} from '@/constants';
 import {useAppNavigation} from '@/hooks';
+import axiosInstance from '@/services/network';
 
 export function HomeScreen() {
   const {styles} = useStyles(stylesheet);
   const navigation = useAppNavigation<EScreenName.HOME>();
 
-  const openUnity = () => {
-    navigation.navigate(EScreenName.UNITY);
+  const callApi = () => {
+    axiosInstance(EApiType.DATA, 'sign-in').get('');
   };
 
   const openMap = () => {
@@ -22,8 +23,8 @@ export function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={openUnity} style={styles.button}>
-        <Text>Unity</Text>
+      <TouchableOpacity onPress={callApi} style={styles.button}>
+        <Text>Call Api</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={openMap} style={styles.button}>
         <Text>Map Lesson</Text>

@@ -16,6 +16,7 @@ export const stylesheet = createStyleSheet(() => ({
   },
   buttons: {
     flexDirection: 'row',
+    gap: 16,
   },
   bottomSheetView: {
     paddingHorizontal: 20,

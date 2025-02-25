@@ -6,17 +6,19 @@ import {Text, TouchableOpacity, useWindowDimensions, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useStyles} from 'react-native-unistyles';
 
+import {ChangeEnv} from './ChangeEnv';
 import {stylesheet} from './DebugScreen.style';
 import {Files} from './Files/Files';
 
 import {BUTTON_DEBUG_SIZE} from '@/constants';
-import {useDebug} from '@/store';
+import {useAppConfig, useDebug} from '@/store';
 
 type TDebugScreenProps = {};
 const Stack = createNativeStackNavigator({
   screens: {
     home: {screen: Content, options: {title: 'DEBUG'}},
     files: Files,
+    env: ChangeEnv,
   },
 });
 const Navigation = createStaticNavigation(Stack);
@@ -61,14 +63,20 @@ export const DebugScreen: React.FC<TDebugScreenProps> = () => {
 function Content() {
   const {styles} = useStyles(stylesheet);
   const navigation = useNavigation();
+  const {env} = useAppConfig();
 
   const openFiles = () => {
     navigation.navigate('files');
   };
 
+  const openEnv = () => {
+    navigation.navigate('env');
+  };
+
   return (
     <View style={styles.bottomSheetView}>
       <View style={styles.buttons}>
+        <Button label={env} onPress={openEnv} />
         <Button label="Duyệt Files" onPress={openFiles} />
       </View>
     </View>
