@@ -15,12 +15,7 @@ import {Icon} from '../bases';
 import {stylesheet} from './DebugButton.style';
 
 import {BUTTON_DEBUG_SIZE} from '@/constants';
-import {useAppDispatch, useAppSelector} from '@/hooks';
-import {
-  hideContentDebug,
-  showContentDebug,
-  updateLastLocation,
-} from '@/store/slices/debugSlice';
+import {useDebug} from '@/store';
 
 const PressableAnimated = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -28,12 +23,17 @@ type TDebugProps = {};
 
 export const DebugButton: React.FC<TDebugProps> = () => {
   const {styles} = useStyles(stylesheet);
-  const dispatch = useAppDispatch();
   const insets = useSafeAreaInsets();
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = useWindowDimensions();
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(insets.top);
-  const {lastLocation, isContentVisible} = useAppSelector(state => state.debug);
+  const {
+    lastLocation,
+    isContentVisible,
+    showContentDebug,
+    hideContentDebug,
+    updateLastLocation,
+  } = useDebug();
 
   const stylez = useAnimatedStyle(() => ({
     transform: [{translateX: translateX.value}, {translateY: translateY.value}],
@@ -41,7 +41,7 @@ export const DebugButton: React.FC<TDebugProps> = () => {
 
   const updateLastValues = (x: number, y: number) => {
     if (!isContentVisible) {
-      dispatch(updateLastLocation({x, y}));
+      updateLastLocation({x, y});
     }
   };
 
@@ -79,9 +79,9 @@ export const DebugButton: React.FC<TDebugProps> = () => {
 
   const toggle = () => {
     if (isContentVisible) {
-      dispatch(hideContentDebug());
+      hideContentDebug();
     } else {
-      dispatch(showContentDebug());
+      showContentDebug();
     }
   };
 

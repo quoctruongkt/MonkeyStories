@@ -15,8 +15,6 @@ import BootSplash from 'react-native-bootsplash';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Provider} from 'react-redux';
-import {PersistGate} from 'redux-persist/integration/react';
 
 import {
   AnimatedBootSplash,
@@ -28,7 +26,6 @@ import {
 import {UnityProvider} from '@/contexts';
 import {useDownloadData} from '@/hooks';
 import {AppNavigation, navigationRef} from '@/navigation';
-import {persistor, store} from '@/store';
 
 const queryClient = new QueryClient();
 const TIME_ORIENTATION_LOADING = 800;
@@ -60,36 +57,30 @@ function App(): React.JSX.Element {
   }, []);
 
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <SafeAreaProvider>
-          <GestureHandlerRootView>
-            <BottomSheetModalProvider>
-              <QueryClientProvider client={queryClient}>
-                <NavigationContainer
-                  ref={navigationRef}
-                  onReady={BootSplash.hide}>
-                  <UnityProvider>
-                    <AppNavigation />
-                    <UnityContainer />
-                    <OrientationLoading show={isOrientationLoadingVisible} />
-                    {isSplashVisible ? (
-                      <AnimatedBootSplash
-                        onAnimationEnd={() => {
-                          setIsSplashVisible(false);
-                        }}
-                      />
-                    ) : null}
-                    <DebugButton />
-                    <DebugScreen />
-                  </UnityProvider>
-                </NavigationContainer>
-              </QueryClientProvider>
-            </BottomSheetModalProvider>
-          </GestureHandlerRootView>
-        </SafeAreaProvider>
-      </PersistGate>
-    </Provider>
+    <SafeAreaProvider>
+      <GestureHandlerRootView>
+        <BottomSheetModalProvider>
+          <QueryClientProvider client={queryClient}>
+            <NavigationContainer ref={navigationRef} onReady={BootSplash.hide}>
+              <UnityProvider>
+                <AppNavigation />
+                <UnityContainer />
+                <OrientationLoading show={isOrientationLoadingVisible} />
+                {isSplashVisible ? (
+                  <AnimatedBootSplash
+                    onAnimationEnd={() => {
+                      setIsSplashVisible(false);
+                    }}
+                  />
+                ) : null}
+                <DebugButton />
+                <DebugScreen />
+              </UnityProvider>
+            </NavigationContainer>
+          </QueryClientProvider>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 }
 

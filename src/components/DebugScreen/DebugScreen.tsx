@@ -10,8 +10,7 @@ import {stylesheet} from './DebugScreen.style';
 import {Files} from './Files/Files';
 
 import {BUTTON_DEBUG_SIZE} from '@/constants';
-import {useAppDispatch, useAppSelector} from '@/hooks';
-import {hideContentDebug} from '@/store/slices/debugSlice';
+import {useDebug} from '@/store';
 
 type TDebugScreenProps = {};
 const Stack = createNativeStackNavigator({
@@ -26,8 +25,7 @@ export const DebugScreen: React.FC<TDebugScreenProps> = () => {
   const bottomSheet = useRef<BottomSheetModal | null>(null);
   const {styles} = useStyles(stylesheet);
   const insets = useSafeAreaInsets();
-  const dispatch = useAppDispatch();
-  const {isContentVisible} = useAppSelector(state => state.debug);
+  const {isContentVisible, hideContentDebug} = useDebug();
   const {height: SCREEN_HEIGHT} = useWindowDimensions();
   const snapPoints = useMemo(
     () => [SCREEN_HEIGHT - insets.top - BUTTON_DEBUG_SIZE, '100%'],
@@ -35,7 +33,7 @@ export const DebugScreen: React.FC<TDebugScreenProps> = () => {
   );
 
   const handleDismiss = () => {
-    dispatch(hideContentDebug());
+    hideContentDebug();
   };
 
   useEffect(() => {
