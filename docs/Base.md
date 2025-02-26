@@ -1,3 +1,51 @@
+# Cấu trúc Project
+
+```graphql
+MonkeyStories/
+|── __tests__/             # Chứa các bài kiểm thử (unit test, integration test)
+│── .husky/                # Chứa các hook của Husky để kiểm soát quy tắc commit
+│── android/               # Mã nguồn Android (native)
+│── assets/                # Chứa các tài nguyên tĩnh
+│── docs/                  # Tài liệu hướng dẫn và mô tả dự án
+│── ios/                   # Mã nguồn iOS (native)
+│── src/                   # Mã nguồn chính của ứng dụng
+│   ├── assets/            # Chứa hình ảnh, icon, fonts, v.v.
+|   │   │── images/        # Ảnh tĩnh sử dụng trong app
+|   │   │── languages/     # Dữ liệu ngôn ngữ, file JSON dịch
+|   │   │── svgs/          # Biểu tượng SVG
+│   ├── components/        # Chứa các component dùng chung trong ứng dụng
+│   ├── configs/           # Cấu hình chung (API keys, env, v.v.)
+|   │── constants/         # Chứa các hằng số dùng chung trong app
+│   ├── contexts/          # Chứa Context API cho state management
+│   ├── hooks/             # Custom hooks dùng để tái sử dụng logic
+│   ├── navigation/        # Điều hướng giữa các màn hình
+│   ├── screens/           # Chứa các màn hình (page) của ứng dụng
+│   ├── services/          # Xử lý API, lưu trữ dữ liệu, gọi backend
+|   │── storage/           # Xử lý lưu trữ dữ liệu local (AsyncStorage, MMKV, v.v.)
+|   │── store/             # Chứa Zustand store nếu dùng
+│   ├── utils/             # Các hàm tiện ích giúp tái sử dụng logic
+│── unity/                 # Nếu ứng dụng có tích hợp Unity (Game, AR, VR, v.v.)
+│── .eslintrc.js           # Cấu hình ESLint để kiểm tra code
+│── .gitignore             # Danh sách file/thư mục bỏ qua khi push git
+│── .prettierrc.js         # Cấu hình Prettier để format code
+│── .versionrc.json        # Cấu hình phiên bản cho ứng dụng
+│── app.json               # Cấu hình chung của ứng dụng
+│── App.tsx                # Entry point chính của ứng dụng
+│── babel.config.js        # Cấu hình Babel cho project
+│── CHANGELOG.md           # Lịch sử thay đổi của ứng dụng
+│── commitlint.config.js   # Cấu hình commit lint để chuẩn hóa commit message
+│── create.js              # Có thể là script tự động tạo file/thư mục
+│── Gemfile                # Quản lý dependency cho iOS (CocoaPods)
+│── Gemfile.lock           # Khóa phiên bản dependency iOS
+│── index.js               # Entry point của ứng dụng (thường import App.tsx)
+│── jest.config.js         # Cấu hình Jest cho unit test
+│── metro.config.js        # Cấu hình Metro bundler cho React Native
+│── package-lock.json      # Quản lý dependency của npm
+│── package.json           # Danh sách dependency và script của ứng dụng
+│── README.md              # Tài liệu hướng dẫn cài đặt và sử dụng
+│── tsconfig.json          # Cấu hình TypeScript (nếu dùng TypeScript)
+```
+
 # Cách tạo nhanh một components hoặc một màn hình
 
 - Trong terminal chạy script sau:

@@ -1,7 +1,8 @@
 import {create} from 'zustand';
 import {createJSONStorage, persist} from 'zustand/middleware';
 
-import {ApiConfig, EEnv, KeyStorages} from '@/constants';
+import {BaseUrls} from '@/configs/api';
+import {EEnv, KeyStorages} from '@/constants';
 import {zustandPersistStorage} from '@/storage';
 import {TApis} from '@/types';
 
@@ -15,8 +16,8 @@ export const useAppConfig = create<IAppConfig>()(
   persist(
     set => ({
       env: EEnv.PROD,
-      baseUrls: ApiConfig[EEnv.PROD],
-      changeEnv: env => set({env, baseUrls: ApiConfig[env]}),
+      baseUrls: BaseUrls[EEnv.PROD],
+      changeEnv: env => set({env, baseUrls: BaseUrls[env]}),
     }),
     {
       name: KeyStorages.CONFIG,

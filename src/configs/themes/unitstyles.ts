@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native-unistyles';
 
 import {breakpoints} from './breakpoints';
-import {darkTheme, lightTheme} from './themes';
+import {lightTheme} from './themes';
 
 // if you defined breakpoints
 type AppBreakpoints = typeof breakpoints;
@@ -9,7 +9,6 @@ type AppBreakpoints = typeof breakpoints;
 // if you defined themes
 type AppThemes = {
   light: typeof lightTheme;
-  dark: typeof darkTheme;
 };
 
 // override library types
@@ -22,6 +21,8 @@ StyleSheet.configure({
   breakpoints,
   themes: {
     light: lightTheme,
-    dark: darkTheme,
+  },
+  settings: {
+    initialTheme: 'light',
   },
 });

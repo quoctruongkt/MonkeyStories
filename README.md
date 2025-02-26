@@ -1,79 +1,110 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Monkeys Stories 📖 🐵
 
-# Getting Started
+Ứng dụng học tiếng anh dành cho trẻ em, giúp bé nâng cao kỹ năng nghe, đọc, và phát âm qua các câu chuyện tương tác.
 
-> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Công nghệ sử dụng:
 
-## Step 1: Start the Metro Server
+- **Ngôn ngữ & Môi trường**
+  - [React Native 0.77.0](https://reactnative.dev/docs/0.77/environment-setup)
+  - TypeScript
+  - Unity
+- **State Management**
+  - [Zustand](https://zustand.docs.pmnd.rs/getting-started/introduction)
+  - React Context API
+- **Điều hướng**
+  - [React Navigation](https://reactnavigation.org/docs/getting-started)
+- **Xử lý API**
+  - [Axios](https://axios-http.com/docs/intro)
+  - [React Query](https://tanstack.com/query/v5/docs/framework/react/overview)
+- **Lưu trữ**
+  - [MMKV](https://github.com/Tencent/MMKV)
+- **Xử lý hình ảnh**
+  - [react-native-turbo-image](https://github.com/duguyihou/react-native-turbo-image)
+- **Xác thực người dùng**
+- **Push Notification**
+- **Test & Debugging**
+  - Jest
+  - [Reactotron](https://docs.infinite.red/reactotron/)
+  - DevTools
+- **CI/CD & Deployment**
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Yêu cầu hệ thống
 
-To start Metro, run the following command from the _root_ of your React Native project:
+### Windows
 
-```bash
-# using npm
-npm start
+- Hệ điều hành: Windows 10/11 (64-bit)
+- Bộ vi xử lý: Intel Core i5 trở lên hoặc tương đương
+- RAM: Tối thiểu 8GB (Khuyến nghị 16GB)
 
-# OR using Yarn
-yarn start
+### macOS
+
+- Hệ điều hành: macOS Ventura (13.x) trở lên
+- Bổ vi xử lý: Apple Silicon hoặc Intel Core i5 trở lên
+- RAM: Tối thiểu 8GB (Khuyến nghị 16GB)
+
+### Yêu cầu phần mềm
+
+1. Node.js & npm/yarn
+
+- Phiên bản Node.js: `>=18.x.x` (khuyến nghị Node 20LTS)
+- Trình quản lý gói: npm `>=9.x.x`.
+  📌 Kiểm tra phiên bản đã cài:
+
+  ```sh
+  node -v
+  npm -v
+  ```
+
+2. Java Development Kit (JDK)
+
+- JDK `>=17`
+  📌 Kiểm tra phiên bản đã cài:
+
+```sh
+java -version
 ```
 
-## Step 2: Start your Application
+3. XCode
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+- Xcode `>=15.x.x`
+- CocoaPods `>=1.14.0`
+- Command Line Tools
 
-### For Android
+## Cài đặt & Chạy dự án
 
-```bash
-# using npm
+### 1. Clone project
+
+```sh
+git clone git@github.com:quoctruongkt/MonkeyStories.git
+cd MonkeyStories
+```
+
+### 2. Cài đặt Unity
+
+- Tải Unity tại
+- Copy mục vừa tải vào thư mục `unity/builds/`
+
+### 3. Cài đặt dependencies
+
+```sh
+npm i
+npx pod-install
+```
+
+### 4. Chạy ứng dụng trên thiết bị/emulator
+
+- Android
+
+```sh
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### For iOS
+- iOS
+  Mở thư mục `ios/MonkeyStores.scworkspace` bằng XCode và chạy trên thiết bị thật (không chạy được trên simulator)
 
-```bash
-# using npm
-npm run ios
+## Quy tắc commit code
 
-# OR using Yarn
-yarn ios
-```
+`<type>:<mô tả commit>`
+_Các type được định nghĩa trong thư mục docs_
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## FAQ & Troubleshooting
