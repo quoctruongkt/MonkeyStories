@@ -8,11 +8,10 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useStyles} from 'react-native-unistyles';
 
 import {Icon} from '../bases';
 
-import {stylesheet} from './DebugButton.style';
+import {styles} from './DebugButton.style';
 
 import {BUTTON_DEBUG_SIZE} from '@/constants';
 import {useDebug} from '@/store';
@@ -22,7 +21,6 @@ const PressableAnimated = Animated.createAnimatedComponent(TouchableOpacity);
 type TDebugProps = {};
 
 export const DebugButton: React.FC<TDebugProps> = () => {
-  const {styles} = useStyles(stylesheet);
   const insets = useSafeAreaInsets();
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = useWindowDimensions();
   const translateX = useSharedValue(0);

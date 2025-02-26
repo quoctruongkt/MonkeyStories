@@ -7,9 +7,8 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import {useStyles} from 'react-native-unistyles';
 
-import {stylesheet} from './Switch.style';
+import {styles} from './Switch.style';
 
 type TSwitchProps = {
   value?: boolean;
@@ -37,7 +36,6 @@ export const Switch: React.FC<TSwitchProps> = ({
   dotColor = DOT_COLOR,
 }) => {
   const progress = useSharedValue(0);
-  const {styles} = useStyles(stylesheet);
 
   const wrapStylez = useAnimatedStyle(() => {
     const backgroundColor = interpolateColor(

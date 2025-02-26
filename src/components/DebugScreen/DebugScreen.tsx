@@ -4,10 +4,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect, useMemo, useRef} from 'react';
 import {Text, TouchableOpacity, useWindowDimensions, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useStyles} from 'react-native-unistyles';
 
 import {ChangeEnv} from './ChangeEnv';
-import {stylesheet} from './DebugScreen.style';
+import {styles} from './DebugScreen.style';
 import {Files} from './Files/Files';
 
 import {BUTTON_DEBUG_SIZE} from '@/constants';
@@ -25,7 +24,6 @@ const Navigation = createStaticNavigation(Stack);
 
 export const DebugScreen: React.FC<TDebugScreenProps> = () => {
   const bottomSheet = useRef<BottomSheetModal | null>(null);
-  const {styles} = useStyles(stylesheet);
   const insets = useSafeAreaInsets();
   const {isContentVisible, hideContentDebug} = useDebug();
   const {height: SCREEN_HEIGHT} = useWindowDimensions();
@@ -61,7 +59,6 @@ export const DebugScreen: React.FC<TDebugScreenProps> = () => {
 };
 
 function Content() {
-  const {styles} = useStyles(stylesheet);
   const navigation = useNavigation();
   const {env} = useAppConfig();
 
@@ -84,8 +81,6 @@ function Content() {
 }
 
 const Button = ({label, onPress}: {label: string; onPress?: () => void}) => {
-  const {styles} = useStyles(stylesheet);
-
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text>{label}</Text>

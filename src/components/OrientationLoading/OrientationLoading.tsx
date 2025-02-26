@@ -6,9 +6,8 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import {useStyles} from 'react-native-unistyles';
 
-import {stylesheet} from './OrientationLoading.style';
+import {styles} from './OrientationLoading.style';
 
 const RADIUS_START = 30;
 const SCALE_START = 0.9;
@@ -22,7 +21,6 @@ type TOrientationLoading = {
 };
 
 export const OrientationLoading = ({show}: TOrientationLoading) => {
-  const {styles} = useStyles(stylesheet);
   const borderRadius = useSharedValue(RADIUS_START);
   const scale = useSharedValue(SCALE_START);
   const opacity = useSharedValue(OPACITY_START);

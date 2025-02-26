@@ -1,6 +1,6 @@
-import {createStyleSheet} from 'react-native-unistyles';
+import {StyleSheet} from 'react-native-unistyles';
 
-export const stylesheet = createStyleSheet(() => ({
+export const styles = StyleSheet.create(() => ({
   container: {flex: 1, justifyContent: 'center', alignItems: 'center'},
   button: {
     width: 100,

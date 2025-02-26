@@ -1,7 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {createStyleSheet} from 'react-native-unistyles';
+import {StyleSheet} from 'react-native-unistyles';
 
-export const stylesheet = createStyleSheet(() => ({
+export const styles = StyleSheet.create(() => ({
   unityContainer: {...StyleSheet.absoluteFillObject, backgroundColor: '#ccc'},
   unityView: {flex: 1},
   button: {

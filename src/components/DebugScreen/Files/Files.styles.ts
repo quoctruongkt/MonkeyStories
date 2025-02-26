@@ -1,6 +1,6 @@
-import {createStyleSheet} from 'react-native-unistyles';
+import {StyleSheet} from 'react-native-unistyles';
 
-export const stylesheet = createStyleSheet(() => ({
+export const styles = StyleSheet.create(() => ({
   container: {flex: 1, padding: 10},
   buttonBack: {
     marginBottom: 10,

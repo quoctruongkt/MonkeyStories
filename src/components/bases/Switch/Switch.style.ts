@@ -1,6 +1,6 @@
-import {createStyleSheet} from 'react-native-unistyles';
+import {StyleSheet} from 'react-native-unistyles';
 
-export const stylesheet = createStyleSheet(() => ({
+export const styles = StyleSheet.create(() => ({
   button: (disabled?: boolean) => ({opacity: disabled ? 0.8 : 1}),
 
   background: {

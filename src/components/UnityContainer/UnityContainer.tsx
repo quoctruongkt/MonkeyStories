@@ -8,10 +8,9 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import {useStyles} from 'react-native-unistyles';
 
 import {getOrientationType, onLockOrientation} from './UnityContainer.helper';
-import {stylesheet} from './UnityContainer.style';
+import {styles} from './UnityContainer.style';
 
 import {
   EMessageTypeUN,
@@ -31,7 +30,6 @@ export const UnityContainer = () => {
   // Khởi tạo ref cho UnityView (ban đầu sẽ là null, nhưng không ảnh hưởng vì ref là object ổn định)
   const unityRef = useRef(null);
   const currentOrientation = useRef<OrientationType>(OrientationType.PORTRAIT);
-  const {styles} = useStyles(stylesheet);
   const {isUnityVisible, onBusinessLogic} = useUnity();
   const position = useSharedValue(POSITION_HIDE);
 

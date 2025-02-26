@@ -23,23 +23,18 @@ if (!VALID_FOLDERS.includes(targetFolder)) {
 const componentPath = path.join(BASE_DIR, targetFolder, componentName);
 
 const componentTsx = `import React from 'react';
-import {useStyles} from 'react-native-unistyles';
 
-import {stylesheet} from './${componentName}.style';
+import {styles} from './${componentName}.style';
 
 ${
   targetFolder === 'components'
     ? `type T${componentName}Props = {};
 
 export const ${componentName}: React.FC<T${componentName}Props> = () => {
-  const {styles} = useStyles(stylesheet);
-
   return null;
 };
   `
     : `export function ${componentName}() {
-  const {styles} = useStyles(stylesheet);
-
   return null;
 };
   `
@@ -48,9 +43,9 @@ export const ${componentName}: React.FC<T${componentName}Props> = () => {
 
 `;
 
-const componentStyle = `import {createStyleSheet} from 'react-native-unistyles';
+const componentStyle = `import {StyleSheet} from 'react-native-unistyles';
 
-export const stylesheet = createStyleSheet(() => ({}));
+export const styles = StyleSheet.create(() => ({}));
 `;
 
 const componentIndex = `export * from './${componentName}';`;

@@ -8,9 +8,8 @@ import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import React, {useEffect, useState} from 'react';
 import {View, Text, FlatList, TouchableOpacity, Alert} from 'react-native';
 import JSONTree from 'react-native-json-tree';
-import {useStyles} from 'react-native-unistyles';
 
-import {stylesheet} from './Files.styles';
+import {styles} from './Files.styles';
 
 const theme = {
   base00: '#ffffff', // Màu nền
@@ -20,7 +19,6 @@ const theme = {
 };
 
 export const Files: React.FC = () => {
-  const {styles} = useStyles(stylesheet);
   const [files, setFiles] = useState<ReadDirResItemT[]>([]); // Danh sách file/thư mục
   const [currentPath, setCurrentPath] = useState<string>(DocumentDirectoryPath); // Đường dẫn hiện tại
   const [selectedJson, setSelectedJson] = useState<string | null>(null);
