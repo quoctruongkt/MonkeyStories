@@ -1,5 +1,8 @@
 PODS:
+  - APNGKit (2.3.0):
+    - Delegate (~> 1.3)
   - boost (1.84.0)
+  - Delegate (1.3.0)
   - DoubleConversion (1.1.6)
   - dr-pogodin-react-native-fs (2.31.0):
     - DoubleConversion
@@ -23,38 +26,36 @@ PODS:
     - ReactCommon/turbomodule/core
     - Yoga
   - fast_float (6.1.4)
-  - FasterImage (1.7.2):
-    - FasterImage/Nuke (= 1.7.2)
-    - FasterImage/NukeUI (= 1.7.2)
-    - RCT-Folly
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Codegen
-    - React-Core
-    - React-RCTFabric
-    - ReactCommon/turbomodule/core
-  - FasterImage/Nuke (1.7.2):
-    - RCT-Folly
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Codegen
-    - React-Core
-    - React-RCTFabric
-    - ReactCommon/turbomodule/core
-  - FasterImage/NukeUI (1.7.2):
-    - RCT-Folly
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Codegen
-    - React-Core
-    - React-RCTFabric
-    - ReactCommon/turbomodule/core
   - FBLazyVector (0.77.1)
   - fmt (11.0.2)
+  - Gifu (3.5.1)
   - glog (0.3.5)
   - hermes-engine (0.77.1):
     - hermes-engine/Pre-built (= 0.77.1)
   - hermes-engine/Pre-built (0.77.1)
+  - NitroModules (0.22.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-callinvoker
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RCT-Folly (2024.11.18.00):
     - boost
     - DoubleConversion
@@ -94,7 +95,6 @@ PODS:
     - React-RCTText (= 0.77.1)
     - React-RCTVibration (= 0.77.1)
   - React-callinvoker (0.77.1)
-  - React-Codegen (0.1.0)
   - React-Core (0.77.1):
     - glog
     - hermes-engine
@@ -1347,8 +1347,10 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-unistyles (2.30.0):
+  - react-native-turbo-image (1.22.1):
+    - APNGKit
     - DoubleConversion
+    - Gifu
     - glog
     - hermes-engine
     - RCT-Folly (= 2024.11.18.00)
@@ -1367,6 +1369,7 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
+    - SwiftSVG
     - Yoga
   - react-native-unity (1.0.11):
     - DoubleConversion
@@ -1925,6 +1928,29 @@ PODS:
     - SSZipArchive (~> 2.5.5)
   - SocketRocket (0.7.1)
   - SSZipArchive (2.5.5)
+  - SwiftSVG (2.3.2)
+  - Unistyles (3.0.0-beta.7):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - NitroModules
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -1932,11 +1958,11 @@ DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - "dr-pogodin-react-native-fs (from `../node_modules/@dr.pogodin/react-native-fs`)"
   - fast_float (from `../node_modules/react-native/third-party-podspecs/fast_float.podspec`)
-  - "FasterImage (from `../node_modules/@candlefinance/faster-image`)"
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
+  - NitroModules (from `../node_modules/react-native-nitro-modules`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -1971,7 +1997,7 @@ DEPENDENCIES:
   - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
-  - react-native-unistyles (from `../node_modules/react-native-unistyles`)
+  - react-native-turbo-image (from `../node_modules/react-native-turbo-image`)
   - "react-native-unity (from `../node_modules/@azesmway/react-native-unity`)"
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
@@ -2009,13 +2035,17 @@ DEPENDENCIES:
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNZipArchive (from `../node_modules/react-native-zip-archive`)
+  - Unistyles (from `../node_modules/react-native-unistyles`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
-    - React-Codegen
+    - APNGKit
+    - Delegate
+    - Gifu
     - SocketRocket
     - SSZipArchive
+    - SwiftSVG
 
 EXTERNAL SOURCES:
   boost:
@@ -2026,8 +2056,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@dr.pogodin/react-native-fs"
   fast_float:
     :podspec: "../node_modules/react-native/third-party-podspecs/fast_float.podspec"
-  FasterImage:
-    :path: "../node_modules/@candlefinance/faster-image"
   FBLazyVector:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   fmt:
@@ -2037,6 +2065,8 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2024-11-25-RNv0.77.0-d4f25d534ab744866448b36ca3bf3d97c08e638c
+  NitroModules:
+    :path: "../node_modules/react-native-nitro-modules"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTDeprecation:
@@ -2101,8 +2131,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-orientation-locker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
-  react-native-unistyles:
-    :path: "../node_modules/react-native-unistyles"
+  react-native-turbo-image:
+    :path: "../node_modules/react-native-turbo-image"
   react-native-unity:
     :path: "../node_modules/@azesmway/react-native-unity"
   React-nativeconfig:
@@ -2177,26 +2207,30 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-svg"
   RNZipArchive:
     :path: "../node_modules/react-native-zip-archive"
+  Unistyles:
+    :path: "../node_modules/react-native-unistyles"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  APNGKit: eb7e111277527cfd47636f797c9c8e7aab5d9601
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
+  Delegate: 0ff4467868095239ff578ab531efd8af46e62881
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   dr-pogodin-react-native-fs: 9f3dc64c20b946c9ea6b600570e38c5ea992640b
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
-  FasterImage: add4ffc88ddc00ae5d0a30ab93ac8b7781cd30fa
   FBLazyVector: 79c4b7ec726447eec5f8593379466bd9fde1aa14
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
+  Gifu: 9f7e52357d41c0739709019eb80a71ad9aab1b6d
   glog: eb93e2f488219332457c3c4eafd2738ddc7e80b8
   hermes-engine: ccc24d29d650ea725d582a9a53d57cd417fbdb53
+  NitroModules: 0b5ab12fb3d174f2dbf9101e167342cd1406cf7b
   RCT-Folly: 36fe2295e44b10d831836cc0d1daec5f8abcf809
   RCTDeprecation: 664055db806cce35c3c1b43c84414dd66e117ae6
   RCTRequired: dc9a83fa1012054f94430d210337ca3a1afe6fc0
   RCTTypeSafety: 031cefa254a1df313a196f105b8fcffdab1c5ab6
   React: 8edfc46c315852ec88ea4a29d5e79019af3dc667
   React-callinvoker: 4450b01574dfc7a8f074f7e29e6965ac04859c8f
-  React-Codegen: 4b8b4817cea7a54b83851d4c1f91f79aa73de30a
   React-Core: 13bdd0a0125fdaecdee747b62e02d2a65b026520
   React-CoreModules: ebe93fa403bbd4d0909de105ffd34eeaad355083
   React-cxxreact: af8a2be3edfed0e1168279eea443f95a7285602e
@@ -2223,7 +2257,7 @@ SPEC CHECKSUMS:
   react-native-mmkv: 55e8a074ae9cb919609755d7271c16b242c2603f
   react-native-orientation-locker: 5819fd23ca89cbac0d736fb4314745f62716d517
   react-native-safe-area-context: 9c33120e9eac7741a5364cc2d9f74665049b76b3
-  react-native-unistyles: c88f1a9c35cd8a6fab4314cebdfbc7e1393bc3f1
+  react-native-turbo-image: 09799c9addb22698602fdcfedba89cf419aecfdd
   react-native-unity: b6c0c5fb0fa1ba70ebbdf6ab04aa889b22dd7d1d
   React-nativeconfig: cb207ebba7cafce30657c7ad9f1587a8f32e4564
   React-NativeModulesApple: 82a8bee52df9f5b378195a500f22be3a6ef0f890
@@ -2263,8 +2297,10 @@ SPEC CHECKSUMS:
   RNZipArchive: 7bb4c70d6aa2dd235212c0a4a3de0a4e237e2569
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   SSZipArchive: c69881e8ac5521f0e622291387add5f60f30f3c4
+  SwiftSVG: ca7f64e403b8ea7ea8eba8c823b83ba4a059834c
+  Unistyles: 2b1083eaf4286ff42e0afd246164f5e3681cbde3
   Yoga: 2957d0e744897870b5a377f26522e3f08cadd7ac
 
 PODFILE CHECKSUM: ab08a13be3c548af410a612394d7f946e30290eb
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
