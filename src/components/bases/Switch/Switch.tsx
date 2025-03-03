@@ -9,15 +9,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import {styles} from './Switch.style';
-
-type TSwitchProps = {
-  value?: boolean;
-  onChange?: (value: boolean) => void;
-  disabled?: boolean;
-  backgroundTrueColor?: string;
-  backgroundFalseColor?: string;
-  dotColor?: string;
-};
+import {ISwitchProps} from './Switch.type';
 
 const POSITION_FALSE = 0;
 const POSITION_TRUE = 21;
@@ -27,7 +19,12 @@ const BACKGROUND_FALSE = '#CCCCCC';
 const BACKGROUND_TRUE = '#76EE59';
 const DOT_COLOR = '#FFFFFF';
 
-export const Switch: React.FC<TSwitchProps> = ({
+/**
+ * Component switch tùy chỉnh với animation
+ * @param param0
+ * @returns
+ */
+export const Switch: React.FC<ISwitchProps> = ({
   value = true,
   onChange,
   disabled,

@@ -1,6 +1,5 @@
-// UnityContainer.js
 import UnityView from '@azesmway/react-native-unity';
-import React, {useEffect, useMemo, useRef} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import {Dimensions} from 'react-native';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import Animated, {
@@ -25,7 +24,11 @@ import {TMessageUnity} from '@/types';
 const {width, height} = Dimensions.get('screen');
 const POSITION_HIDE = width + height;
 const POSITION_SHOW = 0;
+type TMessageFromUnity = {nativeEvent: {message: string}};
 
+/**
+ * Component quản lý tích hợp và hiển thị Unity trong React Native
+ * */
 export const UnityContainer = () => {
   // Khởi tạo ref cho UnityView (ban đầu sẽ là null, nhưng không ảnh hưởng vì ref là object ổn định)
   const unityRef = useRef(null);
@@ -42,11 +45,22 @@ export const UnityContainer = () => {
     [onBusinessLogic],
   );
 
-  useEffect(() => {
-    const handleSendMessage = (message: TMessageUnity) => {
-      unityBridge.sendMessageToUnity(message);
-    };
+  const handleUnityMessage = useCallback(
+    ({nativeEvent}: TMessageFromUnity) => {
+      unityBridge.handleUnityMessage(nativeEvent.message);
+    },
+    [unityBridge],
+  );
 
+  const handleSendMessage = useCallback(
+    (message: TMessageUnity) => {
+      unityBridge.sendMessageToUnity(message);
+    },
+    [unityBridge],
+  );
+
+  // Update useEffect to use memoized handler
+  useEffect(() => {
     UnityEvents.addUnityMessageListener(
       EUnityEventTypes.SEND_MESSAGE,
       handleSendMessage,
@@ -58,7 +72,7 @@ export const UnityContainer = () => {
         handleSendMessage,
       );
     };
-  }, []);
+  }, [handleSendMessage]);
 
   // Điều chỉnh vị trí hiển thị của UnityView dựa theo trạng thái isUnityVisible
   useEffect(() => {
@@ -100,9 +114,7 @@ export const UnityContainer = () => {
       <UnityView
         ref={unityRef}
         style={styles.unityView}
-        onUnityMessage={({nativeEvent}) => {
-          unityBridge.handleUnityMessage(nativeEvent.message);
-        }}
+        onUnityMessage={handleUnityMessage}
       />
     </Animated.View>
   );
