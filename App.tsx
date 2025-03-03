@@ -38,6 +38,7 @@ function App(): React.JSX.Element {
   const orientationRef = useRef<OrientationType>(OrientationType.PORTRAIT);
 
   useEffect(() => {
+    BootSplash.hide();
     downloadData();
     const onOrientationChanged = (orientation: OrientationType) => {
       if (orientation !== orientationRef.current) {

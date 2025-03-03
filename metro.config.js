@@ -1,4 +1,7 @@
+const path = require('path');
+
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+const withStorybook = require('@storybook/react-native/metro/withStorybook');
 const {
   wrapWithReanimatedMetroConfig,
 } = require('react-native-reanimated/metro-config');
@@ -23,6 +26,20 @@ const customConfig = {
 
 // Gộp cấu hình mặc định với cấu hình tùy chỉnh
 const mergedConfig = mergeConfig(defaultConfig, customConfig);
+const finalConfig = wrapWithReanimatedMetroConfig(mergedConfig);
 
 // Gói cấu hình đã gộp với cấu hình của Reanimated
-module.exports = wrapWithReanimatedMetroConfig(mergedConfig);
+module.exports = withStorybook(finalConfig, {
+  // Set to false to remove storybook specific options
+  // you can also use a env variable to set this
+  enabled: true,
+  // Path to your storybook config
+  configPath: path.resolve(__dirname, './.storybook'),
+
+  // Optional websockets configuration
+  // Starts a websocket server on the specified port and host on metro start
+  // websockets: {
+  //   port: 7007,
+  //   host: 'localhost',
+  // },
+});

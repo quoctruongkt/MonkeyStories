@@ -8,3 +8,8 @@ export const zustandPersistStorage = {
   getItem: (name: string) => storage.getString(name) ?? null,
   removeItem: (name: string) => storage.delete(name),
 };
+
+export const storybookStorage = {
+  setItem: async (name: string, value: string) => storage.set(name, value),
+  getItem: async (name: string) => storage.getString(name) ?? null,
+};

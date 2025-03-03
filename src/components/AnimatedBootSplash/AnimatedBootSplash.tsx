@@ -10,6 +10,8 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+import {ImagePaths} from '@/assets/images';
+
 type TAnimatedBootSplashProps = {
   onAnimationEnd: () => void;
 };
@@ -25,7 +27,7 @@ export const AnimatedBootSplash: React.FC<TAnimatedBootSplashProps> = ({
 
   const {container, logo /*, brand */} = BootSplash.useHideAnimation({
     manifest: require('../../../assets/bootsplash/manifest.json'),
-    logo: require('@/assets/images/logo.png'),
+    logo: ImagePaths.LOGO,
     statusBarTranslucent: false,
     navigationBarTranslucent: false,
 

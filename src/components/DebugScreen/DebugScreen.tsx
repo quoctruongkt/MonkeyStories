@@ -5,6 +5,8 @@ import React, {useEffect, useMemo, useRef} from 'react';
 import {Text, TouchableOpacity, useWindowDimensions, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
+import StorybookUIRoot from '../../../.storybook';
+
 import {ChangeEnv} from './ChangeEnv';
 import {styles} from './DebugScreen.style';
 import {Files} from './Files/Files';
@@ -18,6 +20,7 @@ const Stack = createNativeStackNavigator({
     home: {screen: Content, options: {title: 'DEBUG'}},
     files: Files,
     env: ChangeEnv,
+    storybook: StorybookUIRoot,
   },
 });
 const Navigation = createStaticNavigation(Stack);
@@ -70,11 +73,16 @@ function Content() {
     navigation.navigate('env');
   };
 
+  const openStorybook = () => {
+    navigation.navigate('storybook');
+  };
+
   return (
     <View style={styles.bottomSheetView}>
       <View style={styles.buttons}>
         <Button label={env} onPress={openEnv} />
         <Button label="Duyệt Files" onPress={openFiles} />
+        <Button label="Storybook" onPress={openStorybook} />
       </View>
     </View>
   );

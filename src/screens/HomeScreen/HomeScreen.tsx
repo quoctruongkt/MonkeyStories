@@ -3,7 +3,6 @@ import {Text, TouchableOpacity, View} from 'react-native';
 
 import {styles} from './HomeScreen.style';
 
-import {Switch} from '@/components';
 import {EApiType, EScreenName} from '@/constants';
 import {useAppNavigation} from '@/hooks';
 import axiosInstance from '@/services/network';
@@ -27,7 +26,6 @@ export function HomeScreen() {
       <TouchableOpacity onPress={openMap} style={styles.button}>
         <Text>Map Lesson</Text>
       </TouchableOpacity>
-      <Switch />
     </View>
   );
 }

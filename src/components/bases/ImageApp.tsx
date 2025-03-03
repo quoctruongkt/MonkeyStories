@@ -1,8 +1,10 @@
 import React from 'react';
+import {Image, ImageProps} from 'react-native';
 import TurboImage, {TurboImageProps} from 'react-native-turbo-image';
 
-interface ImageAppProps extends TurboImageProps {}
-
+type ImageAppProps = ImageProps | TurboImageProps;
 export function ImageApp(props: ImageAppProps) {
-  return <TurboImage {...props} />;
+  const isLocalImage = typeof props.source === 'number';
+
+  return isLocalImage ? <Image {...props} /> : <TurboImage {...props} />;
 }
