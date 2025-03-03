@@ -1,5 +1,11 @@
 // UnityContext.js
-import React, {createContext, useState, useContext, useCallback} from 'react';
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useCallback,
+  useRef,
+} from 'react';
 
 import {TUnityContext, TUnityProvider} from './UnityContext.type';
 import {UnityEvents} from './UnityEvent';
@@ -19,57 +25,64 @@ const UnityContext = createContext<TUnityContext>({
 
 export const UnityProvider = ({children}: TUnityProvider) => {
   const [isUnityVisible, setUnityVisible] = useState(false);
-  // Lưu các handler theo kiểu: { [type]: handler }
-  const [handlers, setHandlers] = useState<
-    Record<EMessageTypeUN, THandlerMessageUnity>
-  >({});
+  // Sử dụng useRef thay vì useState để tránh re-render không cần thiết
+  const handlersRef = useRef<Record<EMessageTypeUN, THandlerMessageUnity>>({});
 
   const showUnity = () => setUnityVisible(true);
   const hideUnity = () => setUnityVisible(false);
   const sendMessageToUnity = (message: TMessageUnity) => {
-    UnityEvents.emitSendMessageToUnity(message);
+    try {
+      UnityEvents.emitSendMessageToUnity(message);
+    } catch (error) {
+      console.error('Lỗi khi gửi message đến Unity:', error);
+    }
   };
 
   // Đăng ký một handler cho một message type cụ thể
   const registerHandler = useCallback(
     (type: EMessageTypeUN, handler: THandlerMessageUnity) => {
-      setHandlers(prev => ({...prev, [type]: handler}));
+      handlersRef.current = {...handlersRef.current, [type]: handler};
     },
     [],
   );
 
   // Hủy đăng ký handler khi không cần thiết
   const unregisterHandler = useCallback((type: EMessageTypeUN) => {
-    setHandlers(prev => {
-      const newHandlers = {...prev};
-      delete newHandlers[type];
-      return newHandlers;
-    });
+    const newHandlers = {...handlersRef.current};
+    delete newHandlers[type];
+    handlersRef.current = newHandlers;
   }, []);
 
   // Hàm xử lý được gọi khi UnityContainer gửi message
-  const onBusinessLogic = useCallback(
-    async (data: TMessageUnity) => {
-      const handler = handlers[data.type];
+  const onBusinessLogic = useCallback(async (data: TMessageUnity) => {
+    try {
+      const handler = handlersRef.current[data.type];
       if (handler) {
         const result = await handler(data);
         return result;
       } else {
         // Nếu không có handler đăng ký từ màn hình, xử lý mặc định trong UnityProvider
-        handlerLogicDefaults(data);
+        return handlerLogicDefaults(data);
       }
-    },
-    [handlers],
-  );
+    } catch (error) {
+      console.error('Lỗi trong onBusinessLogic:', error);
+      throw new Error(`Lỗi xử lý message type ${data.type}: ${error.message}`);
+    }
+  }, []);
 
   const handlerLogicDefaults = useCallback((data: TMessageUnity) => {
-    switch (data.type) {
-      default:
-        console.warn(
-          'handlerLogicDefaults',
-          `Không tìm thấy handler cho type ${data.type}`,
-        );
-        return null;
+    try {
+      switch (data.type) {
+        default:
+          console.warn(
+            'handlerLogicDefaults',
+            `Không tìm thấy handler cho type ${data.type}`,
+          );
+          return null;
+      }
+    } catch (error) {
+      console.error('Lỗi trong handlerLogicDefaults:', error);
+      return null;
     }
   }, []);
 

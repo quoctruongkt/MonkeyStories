@@ -10,10 +10,6 @@ const emitSendMessageToUnity = (message: TMessageUnity) => {
   unityEvents.emit(EUnityEventTypes.SEND_MESSAGE, message);
 };
 
-const emitReceiveMessageFromUnity = (message: TMessageUnity) => {
-  unityEvents.emit(EUnityEventTypes.RECEIVE_MESSAGE, message);
-};
-
 const addUnityMessageListener = (
   type: EUnityEventTypes,
   listener: (data: TMessageUnity) => void,
@@ -30,7 +26,6 @@ const removeUnityMessageListener = (
 
 export const UnityEvents = {
   emitSendMessageToUnity,
-  emitReceiveMessageFromUnity,
   addUnityMessageListener,
   removeUnityMessageListener,
 };
