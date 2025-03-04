@@ -24,14 +24,14 @@ import {
   UnityContainer,
 } from '@/components';
 import {UnityProvider} from '@/contexts';
-import {useDownloadData} from '@/hooks';
+// import {useDownloadData} from '@/hooks';
 import {AppNavigation, navigationRef} from '@/navigation';
 
 const queryClient = new QueryClient();
 const TIME_ORIENTATION_LOADING = 800;
 
 function App(): React.JSX.Element {
-  const {downloadData} = useDownloadData();
+  // const {downloadData} = useDownloadData();
   const [isOrientationLoadingVisible, setIsOrientationLoadingVisible] =
     useState(false);
   const [isSplashVisible, setIsSplashVisible] = useState(true);
@@ -39,7 +39,7 @@ function App(): React.JSX.Element {
 
   useEffect(() => {
     BootSplash.hide();
-    downloadData();
+    // downloadData();
     const onOrientationChanged = (orientation: OrientationType) => {
       if (orientation !== orientationRef.current) {
         setIsOrientationLoadingVisible(true);

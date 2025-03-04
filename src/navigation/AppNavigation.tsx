@@ -2,7 +2,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 
 import {EScreenName, EOrientationNavigationTypes} from '@/constants';
-import {HomeScreen, MapLesson, UnityScreen} from '@/screens';
+import {HomeScreen, UnityScreen} from '@/screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,11 +14,6 @@ export function AppNavigation() {
       <Stack.Screen
         name={EScreenName.UNITY}
         component={UnityScreen}
-        options={{orientation: EOrientationNavigationTypes.LANDSCAPE}}
-      />
-      <Stack.Screen
-        name={EScreenName.MAP_LESSON}
-        component={MapLesson}
         options={{orientation: EOrientationNavigationTypes.LANDSCAPE}}
       />
     </Stack.Navigator>

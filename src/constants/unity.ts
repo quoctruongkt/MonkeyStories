@@ -9,10 +9,11 @@ export enum EUnityMethodName {
 
 export enum EMessageTypeUN {
   ORIENTATION = 'orientation',
-  OPEN_MAP = 'open_map',
-  CLOSE_MAP = 'CloseUnity',
+  OPEN_UNITY = 'open_unity',
+  CLOSE_UNITY = 'CloseUnity',
   LESSON_PRESS = 'GetDataLesson',
   LESSON_DONE = 'FinishLesson',
+  COIN = 'coin',
 }
 
 export enum EUnityEventTypes {

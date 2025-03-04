@@ -15,7 +15,7 @@ export function HomeScreen() {
   };
 
   const openMap = () => {
-    navigation.navigate(EScreenName.MAP_LESSON);
+    navigation.navigate(EScreenName.UNITY);
   };
 
   return (

@@ -1,6 +1,6 @@
 import UnityView from '@azesmway/react-native-unity';
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
-import {Dimensions} from 'react-native';
+import {Button, Dimensions, Text, View} from 'react-native';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import Animated, {
   useAnimatedStyle,
@@ -35,6 +35,8 @@ export const UnityContainer = () => {
   const currentOrientation = useRef<OrientationType>(OrientationType.PORTRAIT);
   const {isUnityVisible, onBusinessLogic} = useUnity();
   const position = useSharedValue(POSITION_HIDE);
+
+  // const [currentCoin, setCurrentCoin] = useState(0);
 
   const stylez = useAnimatedStyle(() => ({
     transform: [{translateX: position.value}],
@@ -109,6 +111,8 @@ export const UnityContainer = () => {
     };
   }, [unityBridge]);
 
+  const getCoin = () => {};
+
   return (
     <Animated.View style={[styles.unityContainer, stylez]}>
       <UnityView
@@ -116,6 +120,12 @@ export const UnityContainer = () => {
         style={styles.unityView}
         onUnityMessage={handleUnityMessage}
       />
+      <View style={styles.coin}>
+        <Text>Current coin: 0</Text>
+        <Button title="Tăng" />
+        <Button title="Giảm" />
+        <Button title="Get" onPress={getCoin} />
+      </View>
     </Animated.View>
   );
 };

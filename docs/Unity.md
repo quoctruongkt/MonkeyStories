@@ -150,12 +150,13 @@ implementation project(':IngameDebugConsole')
 
 ## 4. Các message RN → UN
 
-| Type          | Payload                                       | Mô tả                                 |
-| ------------- | --------------------------------------------- | ------------------------------------- |
-| `open_map`    | [TOpenMapPayload](#--topenmappayload)         | Yêu cầu mở map học                    |
-| `orientation` | [TOrientationPayload](#--torientationpayload) | Yêu cầu Unity thực hiện xoay màn hình |
-| `open_unity`  | [TOpenUnityPayload](#--topenunitypayload)     | Yêu cầu mở Unity                      |
-|               |                                               |                                       |
+| Type          | Payload                                       | Result                        | Mô tả                                 |
+| ------------- | --------------------------------------------- | ----------------------------- | ------------------------------------- |
+| `open_map`    | [TOpenMapPayload](#--topenmappayload)         | `null`                        | Yêu cầu mở map học                    |
+| `orientation` | [TOrientationPayload](#--torientationpayload) | `null`                        | Yêu cầu Unity thực hiện xoay màn hình |
+| `open_unity`  | [TOpenUnityPayload](#--topenunitypayload)     | `null`                        | Yêu cầu mở Unity                      |
+| `coin`        | [TCoinPayload](#--tcoinpayload)               | [TCoinResult](#--tcoinresult) | Yêu cầu Unity thao tác với coin       |
+|               |                                               |                               |                                       |
 
 ## 5. Các message UN -> RN
 
@@ -167,6 +168,25 @@ implementation project(':IngameDebugConsole')
 |                 |                                               |                                             |                                                                |
 
 ## 6. Types
+
+### - TCoinResult
+
+```
+{
+  status: "success" | "error",
+  message?:string;
+  current_balance?: number
+}
+```
+
+### - TCoinPayload
+
+```
+{
+  action: "get" | "update",
+  amount?: number
+}
+```
 
 ### - TOpenUnityPayload
 
