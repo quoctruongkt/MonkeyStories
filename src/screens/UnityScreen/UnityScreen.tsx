@@ -1,7 +1,7 @@
 import {useFocusEffect} from '@react-navigation/native';
 import {useCallback, useEffect} from 'react';
 
-import {EMessageTypeUN} from '@/constants';
+import {EMessageTypeUN, OpenUnityDestination} from '@/constants';
 import {useUnity} from '@/contexts';
 import {useAppNavigation} from '@/hooks';
 
@@ -19,7 +19,7 @@ export function UnityScreen() {
   useEffect(() => {
     sendMessageToUnity({
       type: EMessageTypeUN.OPEN_UNITY,
-      payload: {destination: 'map_lesson'},
+      payload: {destination: OpenUnityDestination.OPEN_MAP},
     });
   }, []);
 

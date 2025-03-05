@@ -1,23 +1,24 @@
-export enum EUnityGameObject {
-  REACT_NATIVE_BRIDGE = 'ReactNativeBridge',
-}
-
-export enum EUnityMethodName {
-  REQUEST_UNITY_ACTION = 'RequestUnityAction',
-  RESULT_FROM_RN = 'OnResultFromNative',
-}
-
 export enum EMessageTypeUN {
   ORIENTATION = 'orientation',
   OPEN_UNITY = 'open_unity',
   CLOSE_UNITY = 'CloseUnity',
-  LESSON_PRESS = 'GetDataLesson',
-  LESSON_DONE = 'FinishLesson',
   COIN = 'coin',
 }
 
-export enum ELessonStatus {
-  Lock = 1,
-  Doing = 2,
-  Done = 3,
+export enum EUnityStatus {
+  SUCCESS = 'success',
+  FAILED = 'failed',
 }
+
+export const UnityGameObject = {
+  REACT_NATIVE_BRIDGE: 'ReactNativeBridge',
+};
+
+export const UnityMethodName = {
+  REQUEST_UNITY_ACTION: 'RequestUnityAction',
+  RESULT_FROM_RN: 'OnResultFromNative',
+};
+
+export const OpenUnityDestination = {
+  OPEN_MAP: 'open_map',
+} as const;

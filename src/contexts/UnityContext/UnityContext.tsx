@@ -74,7 +74,7 @@ export const UnityProvider = ({children}: TUnityProvider) => {
         // Nếu không có handler đăng ký từ màn hình, xử lý mặc định trong UnityProvider
         return handlerLogicDefaults(data);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Lỗi trong onBusinessLogic:', error);
       throw new Error(`Lỗi xử lý message type ${data.type}: ${error.message}`);
     }

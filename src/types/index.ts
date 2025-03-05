@@ -1,3 +1,3 @@
 export * from './navigation';
-export * from './unity';
 export * from './config';
+export * from './unity';

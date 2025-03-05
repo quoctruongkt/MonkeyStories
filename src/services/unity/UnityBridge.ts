@@ -1,8 +1,8 @@
 // UnityBridge.ts
 import {RefObject} from 'react';
 
-import {EUnityGameObject, EUnityMethodName} from '@/constants';
-import {OnMessageHandler, TMessageUnity} from '@/types';
+import {UnityGameObject, UnityMethodName} from '@/constants';
+import {OnMessageHandler, TMessageUnity, TResultFromRN} from '@/types';
 import {generateId} from '@/utils';
 
 type TMessagePromise = {
@@ -34,8 +34,8 @@ export class UnityBridge {
       console.log('UnityBridge', '📤 Gửi message đến Unity', {...params, id});
 
       this.unityRef.current?.postMessage(
-        EUnityGameObject.REACT_NATIVE_BRIDGE,
-        EUnityMethodName.REQUEST_UNITY_ACTION,
+        UnityGameObject.REACT_NATIVE_BRIDGE,
+        UnityMethodName.REQUEST_UNITY_ACTION,
         message,
       );
     } catch (error) {
@@ -47,11 +47,11 @@ export class UnityBridge {
     }
   }
 
-  returnToUnity(params: TMessageUnity): void {
+  returnToUnity(params: TResultFromRN): void {
     try {
       this.unityRef.current?.postMessage(
-        EUnityGameObject.REACT_NATIVE_BRIDGE,
-        EUnityMethodName.RESULT_FROM_RN,
+        UnityGameObject.REACT_NATIVE_BRIDGE,
+        UnityMethodName.RESULT_FROM_RN,
         JSON.stringify(params),
       );
       console.log('UnityBridge', '📤 Gửi result đến Unity', params);
@@ -67,7 +67,7 @@ export class UnityBridge {
     return new Promise((resolve, reject) => {
       try {
         const id = generateId();
-        const message = {...params, id};
+        const message = {...params, id} as TMessageUnity;
 
         // Tạo timeout handler
         const timeoutId = setTimeout(() => {
@@ -139,22 +139,22 @@ export class UnityBridge {
       const result = await this.onMessageHandler({...message, payload});
 
       // Nếu thành công, gửi response dạng resolve
-      const response: TMessageUnity = {
+      const response = {
         id: message.id,
         type: message.type,
         payload: {success: true, result},
-      };
+      } as TResultFromRN;
       this.returnToUnity(response);
     } catch (error) {
       // Nếu có lỗi, gửi response dạng reject
-      const response: TMessageUnity = {
+      const response = {
         id: message.id,
         type: message.type,
         payload: {
           success: false,
           result: error instanceof Error ? error.message : error,
         },
-      };
+      } as TResultFromRN;
       this.returnToUnity(response);
     }
   }
