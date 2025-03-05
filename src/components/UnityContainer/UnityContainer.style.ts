@@ -13,11 +13,4 @@ export const styles = StyleSheet.create(() => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  coin: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    zIndex: 1,
-    backgroundColor: 'yellow',
-  },
 }));

@@ -1,6 +1,13 @@
 import UnityView from '@azesmway/react-native-unity';
-import React, {useCallback, useEffect, useMemo, useRef} from 'react';
-import {Button, Dimensions, Text, View} from 'react-native';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
+import {Dimensions} from 'react-native';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import Animated, {
   useAnimatedStyle,
@@ -11,12 +18,8 @@ import Animated, {
 import {getOrientationType, onLockOrientation} from './UnityContainer.helper';
 import {styles} from './UnityContainer.style';
 
-import {
-  EMessageTypeUN,
-  EOrientationNavigationTypes,
-  EUnityEventTypes,
-} from '@/constants';
-import {UnityEvents, useUnity} from '@/contexts';
+import {EMessageTypeUN, EOrientationNavigationTypes} from '@/constants';
+import {useUnity} from '@/contexts';
 import {navigationRef} from '@/navigation';
 import {UnityBridge} from '@/services/unity/UnityBridge';
 import {TMessageUnity} from '@/types';
@@ -26,17 +29,25 @@ const POSITION_HIDE = width + height;
 const POSITION_SHOW = 0;
 type TMessageFromUnity = {nativeEvent: {message: string}};
 
+interface IUnityContainerProps {}
+export interface UnityContainerRef {
+  onSendMessage: (message: TMessageUnity) => void;
+  onSendMessageWithResponse: (message: TMessageUnity) => Promise<any>;
+}
+
 /**
  * Component quản lý tích hợp và hiển thị Unity trong React Native
  * */
-export const UnityContainer = () => {
+
+export const UnityContainer = forwardRef<
+  UnityContainerRef,
+  IUnityContainerProps
+>((props, ref) => {
   // Khởi tạo ref cho UnityView (ban đầu sẽ là null, nhưng không ảnh hưởng vì ref là object ổn định)
   const unityRef = useRef(null);
   const currentOrientation = useRef<OrientationType>(OrientationType.PORTRAIT);
   const {isUnityVisible, onBusinessLogic} = useUnity();
   const position = useSharedValue(POSITION_HIDE);
-
-  // const [currentCoin, setCurrentCoin] = useState(0);
 
   const stylez = useAnimatedStyle(() => ({
     transform: [{translateX: position.value}],
@@ -61,20 +72,17 @@ export const UnityContainer = () => {
     [unityBridge],
   );
 
-  // Update useEffect to use memoized handler
-  useEffect(() => {
-    UnityEvents.addUnityMessageListener(
-      EUnityEventTypes.SEND_MESSAGE,
-      handleSendMessage,
-    );
+  const handleSendMessageWithResponse = useCallback(
+    (message: TMessageUnity) => {
+      return unityBridge.sendMessageToUnityWithResponse(message);
+    },
+    [unityBridge],
+  );
 
-    return () => {
-      UnityEvents.removeUnityMessageListener(
-        EUnityEventTypes.SEND_MESSAGE,
-        handleSendMessage,
-      );
-    };
-  }, [handleSendMessage]);
+  useImperativeHandle(ref, () => ({
+    onSendMessage: handleSendMessage,
+    onSendMessageWithResponse: handleSendMessageWithResponse,
+  }));
 
   // Điều chỉnh vị trí hiển thị của UnityView dựa theo trạng thái isUnityVisible
   useEffect(() => {
@@ -111,8 +119,6 @@ export const UnityContainer = () => {
     };
   }, [unityBridge]);
 
-  const getCoin = () => {};
-
   return (
     <Animated.View style={[styles.unityContainer, stylez]}>
       <UnityView
@@ -120,12 +126,6 @@ export const UnityContainer = () => {
         style={styles.unityView}
         onUnityMessage={handleUnityMessage}
       />
-      <View style={styles.coin}>
-        <Text>Current coin: 0</Text>
-        <Button title="Tăng" />
-        <Button title="Giảm" />
-        <Button title="Get" onPress={getCoin} />
-      </View>
     </Animated.View>
   );
-};
+});

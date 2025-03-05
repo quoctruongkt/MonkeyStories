@@ -21,7 +21,6 @@ import {
   DebugButton,
   DebugScreen,
   OrientationLoading,
-  UnityContainer,
 } from '@/components';
 import {UnityProvider} from '@/contexts';
 // import {useDownloadData} from '@/hooks';
@@ -65,7 +64,6 @@ function App(): React.JSX.Element {
             <NavigationContainer ref={navigationRef} onReady={BootSplash.hide}>
               <UnityProvider>
                 <AppNavigation />
-                <UnityContainer />
                 <OrientationLoading show={isOrientationLoadingVisible} />
                 {isSplashVisible ? (
                   <AnimatedBootSplash

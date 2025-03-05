@@ -5,9 +5,21 @@ import {EUnityGameObject, EUnityMethodName} from '@/constants';
 import {OnMessageHandler, TMessageUnity} from '@/types';
 import {generateId} from '@/utils';
 
+type TMessagePromise = {
+  resolve: (value: any) => void;
+  reject: (reason?: any) => void;
+  timeoutId?: NodeJS.Timeout;
+};
+
+type TMessageQueue = {
+  [key: string]: TMessagePromise;
+};
+
 export class UnityBridge {
   private unityRef: RefObject<any>;
   private onMessageHandler: OnMessageHandler;
+  private messageQueue: TMessageQueue = {};
+  private readonly TIMEOUT_DURATION = 30000; // 30 seconds timeout
 
   constructor(unityRef: RefObject<any>, onMessageHandler: OnMessageHandler) {
     this.unityRef = unityRef;
@@ -17,7 +29,7 @@ export class UnityBridge {
   // Hàm gửi message từ RN sang Unity
   sendMessageToUnity(params: TMessageUnity): void {
     try {
-      const id = generateId();
+      const id = params.id ?? generateId();
       const message = JSON.stringify({...params, id});
       console.log('UnityBridge', '📤 Gửi message đến Unity', {...params, id});
 
@@ -48,6 +60,35 @@ export class UnityBridge {
     }
   }
 
+  // Gửi message đến Unity và đợi response
+  sendMessageToUnityWithResponse(
+    params: Omit<TMessageUnity, 'id'>,
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      try {
+        const id = generateId();
+        const message = {...params, id};
+
+        // Tạo timeout handler
+        const timeoutId = setTimeout(() => {
+          if (this.messageQueue[id]) {
+            const {reject: rejectCallback} = this.messageQueue[id];
+            delete this.messageQueue[id];
+            rejectCallback(new Error('Unity response timeout'));
+          }
+        }, this.TIMEOUT_DURATION);
+
+        // Lưu promise handlers và timeout ID vào queue
+        this.messageQueue[id] = {resolve, reject, timeoutId};
+
+        // Gửi message đến Unity
+        this.sendMessageToUnity(message);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   // Hàm xử lý message nhận từ Unity và gửi response
   async handleUnityMessage(data: string): Promise<void> {
     let message: TMessageUnity;
@@ -55,16 +96,46 @@ export class UnityBridge {
       message = JSON.parse(data);
     } catch (parseError) {
       console.error('Error parsing message from Unity:', parseError);
-      return; // Không có id để phản hồi
+      return;
     }
 
     try {
-      const payload = JSON.parse(message.payload || '{}');
+      const payload =
+        typeof message.payload === 'string'
+          ? JSON.parse(message.payload || '{}')
+          : message.payload;
+
+      // Kiểm tra xem có promise đang đợi response không
+      if (message.id && this.messageQueue[message.id]) {
+        console.log(
+          'UnityBridge',
+          `📥 Nhận result type ${message.type}-${message.id}`,
+          {
+            ...message,
+            payload,
+          },
+        );
+        const {resolve, reject, timeoutId} = this.messageQueue[message.id];
+
+        // Clear timeout trước khi xử lý response
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+
+        delete this.messageQueue[message.id];
+
+        if (payload.status === 'success') {
+          resolve(payload);
+        } else {
+          reject(payload);
+        }
+        return;
+      }
+
       console.log('UnityBridge', '📥 Nhận message từ Unity', {
         ...message,
         payload,
       });
-      // Gọi business logic được cung cấp (onMessageHandler)
       const result = await this.onMessageHandler({...message, payload});
 
       // Nếu thành công, gửi response dạng resolve

@@ -8,8 +8,8 @@ import React, {
 } from 'react';
 
 import {TUnityContext, TUnityProvider} from './UnityContext.type';
-import {UnityEvents} from './UnityEvent';
 
+import {UnityContainer, UnityContainerRef} from '@/components';
 import {EMessageTypeUN} from '@/constants';
 import {THandlerMessageUnity, TMessageUnity} from '@/types';
 
@@ -21,33 +21,43 @@ const UnityContext = createContext<TUnityContext>({
   registerHandler: () => {},
   unregisterHandler: () => {},
   onBusinessLogic: async () => {},
+  sendMessageToUnityWithResponse: async () => {},
 });
 
 export const UnityProvider = ({children}: TUnityProvider) => {
   const [isUnityVisible, setUnityVisible] = useState(false);
-  // Sử dụng useRef thay vì useState để tránh re-render không cần thiết
   const handlersRef = useRef<Record<EMessageTypeUN, THandlerMessageUnity>>({});
+  const unityRef = useRef<UnityContainerRef>(null);
 
   const showUnity = () => setUnityVisible(true);
   const hideUnity = () => setUnityVisible(false);
-  const sendMessageToUnity = (message: TMessageUnity) => {
+  const sendMessageToUnity = (message: TMessageUnity): void => {
     try {
-      UnityEvents.emitSendMessageToUnity(message);
+      unityRef.current?.onSendMessage(message);
     } catch (error) {
       console.error('Lỗi khi gửi message đến Unity:', error);
     }
   };
 
+  const sendMessageToUnityWithResponse = async (message: TMessageUnity) => {
+    try {
+      return unityRef.current?.onSendMessageWithResponse(message);
+    } catch (error) {
+      console.error('Lỗi khi gửi message đến Unity:', error);
+      throw error;
+    }
+  };
+
   // Đăng ký một handler cho một message type cụ thể
   const registerHandler = useCallback(
-    (type: EMessageTypeUN, handler: THandlerMessageUnity) => {
+    (type: EMessageTypeUN, handler: THandlerMessageUnity): void => {
       handlersRef.current = {...handlersRef.current, [type]: handler};
     },
     [],
   );
 
   // Hủy đăng ký handler khi không cần thiết
-  const unregisterHandler = useCallback((type: EMessageTypeUN) => {
+  const unregisterHandler = useCallback((type: EMessageTypeUN): void => {
     const newHandlers = {...handlersRef.current};
     delete newHandlers[type];
     handlersRef.current = newHandlers;
@@ -93,11 +103,13 @@ export const UnityProvider = ({children}: TUnityProvider) => {
         showUnity,
         hideUnity,
         sendMessageToUnity,
+        sendMessageToUnityWithResponse,
         registerHandler,
         unregisterHandler,
         onBusinessLogic,
       }}>
       {children}
+      <UnityContainer ref={unityRef} />
     </UnityContext.Provider>
   );
 };

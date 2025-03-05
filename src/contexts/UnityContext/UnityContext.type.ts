@@ -8,6 +8,8 @@ export type TUnityContext = {
   showUnity: () => void;
   /** Hàm ẩn Unity view */
   hideUnity: () => void;
+  /** Hàm gửi message từ React Native sang Unity và đợi response */
+  sendMessageToUnityWithResponse: (message: TMessageUnity) => Promise<any>;
   /** Hàm gửi message từ React Native sang Unity */
   sendMessageToUnity: (message: TMessageUnity) => void;
   /**

@@ -16,10 +16,6 @@ export enum EMessageTypeUN {
   COIN = 'coin',
 }
 
-export enum EUnityEventTypes {
-  SEND_MESSAGE = 'send_message',
-}
-
 export enum ELessonStatus {
   Lock = 1,
   Doing = 2,
