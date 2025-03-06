@@ -3,6 +3,7 @@ export enum EMessageTypeUN {
   OPEN_UNITY = 'open_unity',
   CLOSE_UNITY = 'CloseUnity',
   COIN = 'coin',
+  USER = 'user',
 }
 
 export enum EUnityStatus {

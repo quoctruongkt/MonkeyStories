@@ -15,6 +15,16 @@ interface ICloseResult extends IMessageUnityBase<EMessageTypeUN.CLOSE_UNITY> {
   };
 }
 
+interface IUserGetResult extends IMessageUnityBase<EMessageTypeUN.USER> {
+  payload: {
+    success: boolean;
+    result: {
+      userId: number;
+      name: string;
+    };
+  };
+}
+
 export type TResultFromUnity = ICoinResult;
 
-export type TResultFromRN = ICloseResult;
+export type TResultFromRN = ICloseResult | IUserGetResult;

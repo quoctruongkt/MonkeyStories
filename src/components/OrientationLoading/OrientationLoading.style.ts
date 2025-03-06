@@ -6,6 +6,7 @@ export const styles = StyleSheet.create(() => ({
     backgroundColor: 'rgba(1,1,1,1)',
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 10,
   },
   text: {
     color: '#fff',

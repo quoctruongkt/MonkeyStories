@@ -83,6 +83,11 @@ export const UnityProvider = ({children}: TUnityProvider) => {
   const handlerLogicDefaults = useCallback((data: TMessageUnity) => {
     try {
       switch (data.type) {
+        case EMessageTypeUN.USER:
+          if (data.payload.action === 'get') {
+            return {id: 1234, name: 'John Smith', avatar: ''};
+          }
+          return null;
         default:
           console.warn(
             'handlerLogicDefaults',

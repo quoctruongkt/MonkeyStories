@@ -26,8 +26,15 @@ interface ICoinPayload extends IMessageUnityBase<EMessageTypeUN.COIN> {
   };
 }
 
+interface IUserPayload extends IMessageUnityBase<EMessageTypeUN.USER> {
+  payload: {
+    action: 'get';
+  };
+}
+
 export type TMessageUnity =
   | IOpenUnityPayload
   | IOrientationPayload
   | ICloseUnityPayload
-  | ICoinPayload;
+  | ICoinPayload
+  | IUserPayload;
