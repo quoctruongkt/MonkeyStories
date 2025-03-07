@@ -21,5 +21,5 @@ export const UnityMethodName = {
 };
 
 export const OpenUnityDestination = {
-  OPEN_MAP: 'open_map',
+  OPEN_MAP: 'map_lesson',
 } as const;

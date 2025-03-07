@@ -8,7 +8,7 @@
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {NavigationContainer} from '@react-navigation/native';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import '@/configs/themes/unitstyles';
 import '@/configs/localization';
 import BootSplash from 'react-native-bootsplash';
@@ -36,6 +36,10 @@ function App(): React.JSX.Element {
   const [isSplashVisible, setIsSplashVisible] = useState(true);
   const orientationRef = useRef<OrientationType>(OrientationType.PORTRAIT);
 
+  const hideSplashScreen = useCallback(() => {
+    BootSplash.hide();
+  }, []);
+
   useEffect(() => {
     BootSplash.hide();
     // downloadData();
@@ -61,7 +65,7 @@ function App(): React.JSX.Element {
       <GestureHandlerRootView>
         <BottomSheetModalProvider>
           <QueryClientProvider client={queryClient}>
-            <NavigationContainer ref={navigationRef} onReady={BootSplash.hide}>
+            <NavigationContainer ref={navigationRef} onReady={hideSplashScreen}>
               <UnityProvider>
                 <AppNavigation />
                 <OrientationLoading show={isOrientationLoadingVisible} />

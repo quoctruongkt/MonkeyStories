@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import {FlatListApp} from '../../src/components';
+import {FlatListApp} from '../../src/components/bases/FlatListApp';
 
 const data = Array.from({length: 50}, (_, i) => ({
   id: i.toString(),

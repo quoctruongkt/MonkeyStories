@@ -22,9 +22,11 @@ type TDebugProps = {};
 
 export const DebugButton: React.FC<TDebugProps> = () => {
   const insets = useSafeAreaInsets();
+
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = useWindowDimensions();
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(insets.top);
+
   const {
     lastLocation,
     isContentVisible,

@@ -28,8 +28,6 @@ export const AnimatedBootSplash: React.FC<TAnimatedBootSplashProps> = ({
   const {container, logo /*, brand */} = BootSplash.useHideAnimation({
     manifest: require('../../../assets/bootsplash/manifest.json'),
     logo: ImagePaths.LOGO,
-    statusBarTranslucent: false,
-    navigationBarTranslucent: false,
 
     animate: () => {
       position.value = withSequence(

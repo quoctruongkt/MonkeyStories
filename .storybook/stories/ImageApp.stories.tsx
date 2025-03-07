@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {ImageApp} from '../../src/components';
+import {ImageApp} from '../../src/components/bases/ImageApp';
 import {ImagePaths} from '../../src/assets/images';
 
 const meta = {
