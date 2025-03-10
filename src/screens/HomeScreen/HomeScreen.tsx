@@ -61,6 +61,7 @@ export function HomeScreen() {
       <Button title="Tăng" onPress={() => changeCoin(1)} />
       <Button title="Giảm" onPress={() => changeCoin(-1)} />
       <Button
+        testID="hello"
         title="Hien modal"
         onPress={() =>
           showModal(EModalNames.NOTIFICATION, {

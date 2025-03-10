@@ -13,7 +13,9 @@
     "prepare": "husky",
     "commitlint": "commitlint --edit",
     "release": "commit-and-tag-version && git push --follow-tags",
-    "storybook-generate": "sb-rn-get-stories"
+    "storybook-generate": "sb-rn-get-stories",
+    "detox:build-android": "detox build --configuration android.emu.debug",
+    "detox:test-android": "detox test --configuration android.emu.debug"
   },
   "dependencies": {
     "@azesmway/react-native-unity": "^1.0.11",
@@ -69,6 +71,7 @@
     "babel-loader": "^8.4.1",
     "babel-plugin-module-resolver": "^5.0.2",
     "commit-and-tag-version": "^12.5.0",
+    "detox": "^20.34.4",
     "eslint": "^8.19.0",
     "eslint-plugin-import": "^2.31.0",
     "husky": "^9.1.7",
