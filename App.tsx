@@ -20,6 +20,7 @@ import {
   AnimatedBootSplash,
   DebugButton,
   DebugScreen,
+  Modals,
   OrientationLoading,
 } from '@/components';
 import {UnityProvider} from '@/contexts';
@@ -78,6 +79,7 @@ function App(): React.JSX.Element {
                 ) : null}
                 <DebugButton />
                 <DebugScreen />
+                <Modals />
               </UnityProvider>
             </NavigationContainer>
           </QueryClientProvider>

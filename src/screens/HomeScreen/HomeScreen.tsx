@@ -3,15 +3,17 @@ import {Button, Text, TouchableOpacity, View} from 'react-native';
 
 import {styles} from './HomeScreen.style';
 
-import {EApiType, EMessageTypeUN, EScreenName} from '@/constants';
+import {EApiType, EMessageTypeUN, EModalNames, EScreenName} from '@/constants';
 import {useUnity} from '@/contexts';
 import {useAppNavigation} from '@/hooks';
 import axiosInstance from '@/services/network';
+import {useModal} from '@/store';
 
 export function HomeScreen() {
   const navigation = useAppNavigation<EScreenName.HOME>();
   const [currentCoin, setCurrentCoin] = useState(0);
   const {sendMessageToUnityWithResponse} = useUnity();
+  const {showModal} = useModal();
 
   const callApi = () => {
     axiosInstance(EApiType.DATA, 'sign-in').get('');
@@ -58,6 +60,23 @@ export function HomeScreen() {
       <Text>Current coin: {currentCoin}</Text>
       <Button title="Tăng" onPress={() => changeCoin(1)} />
       <Button title="Giảm" onPress={() => changeCoin(-1)} />
+      <Button
+        title="Hien modal"
+        onPress={() =>
+          showModal(EModalNames.NOTIFICATION, {
+            title: 'hin',
+            description: 'Hien modal',
+            actions: [
+              {
+                label: 'Hien',
+                onPress: () => {
+                  console.log('Hien');
+                },
+              },
+            ],
+          })
+        }
+      />
     </View>
   );
 }

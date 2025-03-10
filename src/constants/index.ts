@@ -5,3 +5,4 @@ export * from './sizes';
 export * from './config';
 export * from './sizes';
 export * from './storage';
+export * from './modals';
